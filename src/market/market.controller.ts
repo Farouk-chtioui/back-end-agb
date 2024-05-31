@@ -18,17 +18,17 @@ export class MarketController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.marketService.getUserById(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMarketDto: UpdateMarketDto) {
+  update(@Param('id') id: number, @Body() updateMarketDto: UpdateMarketDto) {
     return this.marketService.updateUser(id, updateMarketDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.marketService.deleteUser(id);
   }
 }

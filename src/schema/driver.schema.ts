@@ -1,13 +1,10 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import * as mongoose from 'mongoose';
-import * as AutoIncrementFactory from 'mongoose-sequence';
 
-const AutoIncrement = AutoIncrementFactory(mongoose);
+
 
 @Schema()
 export class Driver {
-  @Prop()
-  _id: number;
+
 
   @Prop({ required: true })
   first_name: string;
@@ -15,7 +12,7 @@ export class Driver {
   @Prop({ required: true })
   last_name: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true})
   email: string;
 
   @Prop({ required: true })
@@ -32,5 +29,4 @@ export class Driver {
 }
 
 const DriverSchema = SchemaFactory.createForClass(Driver);
-DriverSchema.plugin(AutoIncrement, {inc_field: '_id'});
 export { DriverSchema };

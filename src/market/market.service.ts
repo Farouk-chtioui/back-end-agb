@@ -9,7 +9,7 @@ import { UpdateMarketDto } from 'src/dto/updateMarket.dto';
 export class MarketService {
   constructor(@InjectModel(Market.name) private marketModel: Model<Market>) {}
 
-  async createMarket({ ...createUserDto }: CreateMarketDto) {
+ createMarket(createUserDto: CreateMarketDto) {
     const newMarket = new this.marketModel(createUserDto);
     return newMarket.save();
   }
@@ -18,15 +18,15 @@ export class MarketService {
     return this.marketModel.find()
   }
 
-  getUserById(id: string) {
+  getUserById(id: number) {
     return this.marketModel.findById(id);
   }
 
-  updateUser(id: string, updateMarketDto: UpdateMarketDto) {
+  updateUser(id: number, updateMarketDto: UpdateMarketDto) {
     return this.marketModel.findByIdAndUpdate(id, updateMarketDto, { new: true });
   }
 
-  deleteUser(id: string) {
+  deleteUser(id: number) {
     return this.marketModel.findByIdAndDelete(id);
   }
 }

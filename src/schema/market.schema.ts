@@ -1,5 +1,6 @@
 import { Schema,Prop, SchemaFactory } from "@nestjs/mongoose";
 
+
 @Schema()
 export class Market{
     
@@ -9,7 +10,7 @@ export class Market{
     @Prop({ required: true })
     last_name: string;
 
-    @Prop({ required: true })
+    @Prop({ required: true, unique: true})
     email: string;
     
     @Prop({ required: true })
