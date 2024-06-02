@@ -1,23 +1,19 @@
-import { IsString, IsNotEmpty, IsEmail, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
 
 export class DriverDto {
   @IsString()
-  @IsOptional()
-  readonly id?: string;
+  @IsNotEmpty()
+  readonly first_name: string;
 
   @IsString()
   @IsNotEmpty()
-  readonly name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly licenseNumber: string;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly phone: string;
+  readonly last_name: string;
 
   @IsEmail()
   @IsNotEmpty()
   readonly email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly password: string;
 }
