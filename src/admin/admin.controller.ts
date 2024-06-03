@@ -14,7 +14,6 @@ export class AdminController {
   ) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   async create(@Body() adminDto: AdminDto): Promise<Admin> {
     return this.adminService.create(adminDto);
   }
