@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
 import { DriverService } from "./driver.service";
 import { Driver } from "src/schema/driver.schema";
 
@@ -9,9 +9,9 @@ export class DriverController {
     create(@Body() driver: Driver) {
         return this.driverService.createDriver(driver);
     }
- @Get()
- async findAll() {
-        return this.driverService.findAll();
+    @Get()
+    async findAll(@Query('page') page: number) {
+      return this.driverService.findAll(page);
     }
     @Get(':id')
     async findOne(@Param('id') id: string) {

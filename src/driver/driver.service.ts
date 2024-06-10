@@ -10,9 +10,10 @@ export class DriverService{
         const newDriver = new this.driverModel(driver);
         return newDriver.save();
     }
-    async findAll(): Promise<Driver[]>{
-        return this.driverModel.find().exec();
-    }
+    async findAll(page: number = 1, limit: number = 6): Promise<Driver[]> {
+        const skip = (page - 1) * limit;
+        return this.driverModel.find().skip(skip).limit(limit).exec();
+      }
     async findOne(id: string): Promise<Driver>{
         return this.driverModel.findById(id).exec();
     }
@@ -25,8 +26,14 @@ export class DriverService{
         return this.driverModel.findByIdAndDelete(id);
         
     }
-    async searchDriver(name: string): Promise<Driver[]>{
-        return this.driverModel.find({name: {$regex: name, $options: 'i'}}).exec();
+    async searchDriver(searchTerm: string): Promise<Driver[]>{
+        const regex = new RegExp(searchTerm, 'i');
+        return this.driverModel.find({
+            $or: [
+                { first_name: { $regex: regex } },
+                { last_name: { $regex: regex } }
+            ]
+        }).exec();
     }
     
 }
