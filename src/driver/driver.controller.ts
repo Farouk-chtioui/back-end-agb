@@ -25,4 +25,8 @@ export class DriverController {
     async delete(@Param('id') id: string) {
         return this.driverService.delete(id);
     }
+    @Get('search/:name')
+    async searchDriver(@Param('name') name: string) {
+        return this.driverService.searchDriver(name);
+    }
 }

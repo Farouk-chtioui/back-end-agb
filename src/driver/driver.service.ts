@@ -17,11 +17,16 @@ export class DriverService{
         return this.driverModel.findById(id).exec();
     }
     async update(id: string, driver: Driver): Promise<Driver>{
-        return this.driverModel.findByIdAndUpdate
-        (id, driver, {new: true}).exec();
+        return this.driverModel.findByIdAndUpdate(id, driver, {new: true}).exec();
     }
     async delete(id: string): Promise<Driver>{
+        if(!id) throw new Error('Id is required');
+        if(!this.driverModel.findById(id)) throw new Error('Driver not found');
         return this.driverModel.findByIdAndDelete(id);
+        
+    }
+    async searchDriver(name: string): Promise<Driver[]>{
+        return this.driverModel.find({name: {$regex: name, $options: 'i'}}).exec();
     }
     
 }
