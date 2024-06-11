@@ -38,7 +38,10 @@ export class AdminController {
 
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
-    return this.adminService.login(loginDto);
+    const result = await this.adminService.login(loginDto);
+    if(!result) { 
+      throw new Error('Wrong email or password');
+    }
   }
 
   @Delete(':id')
@@ -47,9 +50,5 @@ export class AdminController {
     return this.adminService.delete(id);
   }
 
-  @Get('test/jwt-secret')
-  @UseGuards(JwtAuthGuard)
-  getJwtSecret() {
-    return { secret: this.configService.get<string>('JWT_SECRET') };
-  }
+
 }
