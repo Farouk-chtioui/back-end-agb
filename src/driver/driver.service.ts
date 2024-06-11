@@ -3,12 +3,14 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Driver } from "src/schema/driver.schema";
 import { DriverDto } from "src/dto/driver.dto";
+import * as crypto from 'bcrypt';
 @Injectable()
 export class DriverService{
     constructor(@InjectModel(Driver.name) private driverModel: Model<Driver>){}
     async createDriver(driverDto:DriverDto): Promise<Driver>{
-        const newDriver = new this.driverModel(driverDto);
-        return newDriver.save();
+        const hashedPassword = await crypto.hash(driverDto.password, 10);
+        const newDriver = new this.driverModel({...driverDto, password: hashedPassword});
+                return newDriver.save();
     }
     async findAll(page: number = 1, limit: number = 6): Promise<Driver[]> {
         const skip = (page - 1) * limit;
@@ -41,5 +43,17 @@ export class DriverService{
             ]
         }).exec();
     }
-    
+    async login(email: string, password: string): Promise<Driver>{
+        const driver = await this.driverModel.findOne({ email }).exec();
+        if (!driver) {
+          throw new Error('Driver not found');
+        }
+      
+        const isPasswordValid = await crypto.compare(password, driver.password);
+        if (!isPasswordValid) {
+          throw new Error('Invalid password');
+        }
+      
+        return driver;
+      }
 }

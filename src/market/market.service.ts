@@ -4,13 +4,14 @@ import { Model } from 'mongoose';
 import { Market } from '../schema/market.schema';
 import { CreateMarketDto } from 'src/dto/market.dto';
 import { UpdateMarketDto } from 'src/dto/updateMarket.dto';
-
+import * as crypto from 'bcrypt';
 @Injectable()
 export class MarketService {
   constructor(@InjectModel(Market.name) private marketModel: Model<Market>) {}
 
- createMarket(createUserDto: CreateMarketDto) {
-    const newMarket = new this.marketModel(createUserDto);
+ async createMarket(createmarketDto: CreateMarketDto) {
+  const hashedPassword = await crypto.hash(createmarketDto.password, 10);
+    const newMarket = new this.marketModel({...createmarketDto, password: hashedPassword});
     return newMarket.save();
   }
 

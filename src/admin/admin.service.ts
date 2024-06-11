@@ -17,7 +17,7 @@ export class AdminService {
 
   async create(adminDto: AdminDto): Promise<Admin> {
     const hashedPassword = await bcrypt.hash(adminDto.password, 10);
-    const newUser = new this.adminModel({ name: adminDto.name, email: adminDto.email, password: hashedPassword });
+    const newUser = new this.adminModel({ ...adminDto, password: hashedPassword });
     return newUser.save();
   }
 

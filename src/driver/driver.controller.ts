@@ -29,4 +29,8 @@ export class DriverController {
     async searchDriver(@Param('name') name: string) {
         return this.driverService.searchDriver(name);
     }
+    @Post()
+    async login(@Body('email') email: string, @Body('password') password: string) {
+        return this.driverService.login(email, password);
+    }
 }
