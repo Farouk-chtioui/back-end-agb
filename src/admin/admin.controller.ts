@@ -47,9 +47,4 @@ export class AdminController {
     return this.adminService.delete(id);
   }
 
-  @Get('test/jwt-secret')
-  @UseGuards(JwtAuthGuard)
-  getJwtSecret() {
-    return { secret: this.configService.get<string>('JWT_SECRET') };
-  }
 }

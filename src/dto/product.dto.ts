@@ -1,20 +1,19 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 export class ProdcutCreation {
 
     @IsNotEmpty()
     @IsString()
     name: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
-    description: string;
+    description?: string;
 
     @IsNotEmpty()
     @IsNumber()
     price: number;
 
-
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
-    image: string;
+    image?: string;
   }
