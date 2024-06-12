@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail,MinLength } from 'class-validator';
 
 export class DriverDto {
   @IsString()
@@ -13,7 +13,7 @@ export class DriverDto {
   @IsNotEmpty()
   readonly email: string;
 
-  @IsString()
-  @IsNotEmpty()
-  readonly password: string;
+  @IsNotEmpty({ message: 'Password should not be empty.' })
+  @MinLength(8, { message: 'Password must be at least 8 characters long.' })
+  password: string;
 }

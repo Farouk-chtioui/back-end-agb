@@ -1,12 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UsePipes, ValidationPipe, } from "@nestjs/common";
 import { DriverService } from "./driver.service";
 import { Driver } from "src/schema/driver.schema";
+import { DriverDto } from "src/dto/driver.dto";
 
 @Controller('driver')
 export class DriverController {
  constructor(private readonly driverService: DriverService) {}  
  @Post()
-    create(@Body() driver: Driver) {
+ @UsePipes(new ValidationPipe())
+
+    create(@Body() driver: DriverDto) {
         return this.driverService.createDriver(driver);
     }
     @Get()
