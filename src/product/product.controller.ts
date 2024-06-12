@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
 import { ProductService } from "./product.service";
 import { ConfigService } from "@nestjs/config";
 import { Product } from "src/schema/product.schema";
@@ -16,8 +16,8 @@ import { ProdcutCreation } from "src/dto/product.dto";
             return this.productService.create(productDto);
         }
         @Get()
-        async findAll() {
-            return this.productService.findAll();
+        async findAll(@Query('page') page: number){
+            return this.productService.findAll(page);
         }
         @Get(':id')
         async findOne(@Param('id') id: string) {
