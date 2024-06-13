@@ -32,7 +32,7 @@ export class DriverController {
     async searchDriver(@Param('name') name: string) {
         return this.driverService.searchDriver(name);
     }
-    @Post()
+    @Post('login')
     async login(@Body('email') email: string, @Body('password') password: string) {
         return this.driverService.login(email, password);
     }
