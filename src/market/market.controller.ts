@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { MarketService } from './market.service';
 import { CreateMarketDto } from 'src/dto/market.dto';
 import { UpdateMarketDto } from 'src/dto/updateMarket.dto';
@@ -13,8 +13,8 @@ export class MarketController {
   }
 
   @Get()
-  findAll() {
-    return this.marketService.getsMarkets();
+  findAll(@Query('page') page: number){
+    return this.marketService.getsMarkets(page);
   }
 
   @Get(':id')
@@ -31,4 +31,9 @@ export class MarketController {
   remove(@Param('id') id: number) {
     return this.marketService.deleteUser(id);
   }
+  @Get('search/:name')
+  async searchMarket(@Param('name') name: string) {
+      return this.marketService.searchMarket(name);
+  }
+  
 }

@@ -15,8 +15,9 @@ export class MarketService {
     return newMarket.save();
   }
 
-  getsMarkets() {
-    return this.marketModel.find()
+ async getsMarkets(page: number = 1, limit: number = 6): Promise<Market[]>{
+    const skip = (page - 1) * limit;
+    return this.marketModel.find().skip(skip).limit(limit).exec();
   }
 
   getUserById(id: number) {
@@ -30,4 +31,12 @@ export class MarketService {
   deleteUser(id: number) {
     return this.marketModel.findByIdAndDelete(id);
   }
+  async searchMarket(searchTerm: string): Promise<Market[]>{
+    const regex = new RegExp(searchTerm, 'i');
+    return this.marketModel.find({
+        $or: [
+            { first_name: { $regex: regex } },
+            { last_name: { $regex: regex } }
+        ]
+    }).exec();}
 }

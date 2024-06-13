@@ -27,5 +27,9 @@ export class Market{
         }
       })
     created_at: Date;
+    @Prop({required: true})
+    numberMa:number;
+    @Prop({required: true})
+    numberMi:number;
 }
 export const MarketSchema = SchemaFactory.createForClass(Market);
