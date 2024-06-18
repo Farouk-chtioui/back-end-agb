@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { SecteurService } from "./secture.service";
+import { SecteurService } from "./secteurs.service";
 
 @Controller('secteur')
 export class SecteurController {
