@@ -24,4 +24,14 @@ export class LivraisonService {
             .populate('driver')
             .exec();
     }
+    async findbycommande(NumeroCommande: string): Promise<Livraison> {
+        return this.livraisonModel
+            .findOne({ NumeroCommande })
+            .populate('client')
+            .populate('products') // Ensure 'products', 'market', 'driver' are correctly populated
+            .populate('market')
+            .populate('driver')
+            .exec();
+    }
+    
 }

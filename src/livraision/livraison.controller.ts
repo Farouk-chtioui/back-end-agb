@@ -16,4 +16,8 @@ export class LivraisonController {
     async findAll(): Promise<Livraison[]> {
         return this.livraisonService.findAll();
     }
+    @Get('commande/:NumeroCommande')
+    async findbycommande(@Body() NumeroCommande: string): Promise<Livraison> {
+        return this.livraisonService.findbycommande(NumeroCommande);
+    }
 }
