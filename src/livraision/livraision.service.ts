@@ -19,7 +19,7 @@ export class LivraisonService {
         return this.livraisonModel
             .find()
             .populate('client')
-            .populate('products') // Ensure 'products', 'market', 'driver' are correctly populated
+            .populate('products')
             .populate('market')
             .populate('driver')
             .exec();
@@ -28,7 +28,7 @@ export class LivraisonService {
         return this.livraisonModel
             .findOne({ NumeroCommande })
             .populate('client')
-            .populate('products') // Ensure 'products', 'market', 'driver' are correctly populated
+            .populate('products')
             .populate('market')
             .populate('driver')
             .exec();

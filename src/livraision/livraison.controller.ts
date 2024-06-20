@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { LivraisonService } from './livraision.service';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
 import { Livraison } from '../schema/livraision.schema';
@@ -16,8 +16,8 @@ export class LivraisonController {
     async findAll(): Promise<Livraison[]> {
         return this.livraisonService.findAll();
     }
-    @Get('commande/:NumeroCommande')
-    async findbycommande(@Body() NumeroCommande: string): Promise<Livraison> {
+    @Get(':NumeroCommande')
+    async findbycommande(@Param('NumeroCommande') NumeroCommande: string): Promise<Livraison> {
         return this.livraisonService.findbycommande(NumeroCommande);
     }
 }

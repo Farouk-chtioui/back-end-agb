@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsArray, IsMongoId } from 'class-validator';
+import { IsString, IsNotEmpty, IsArray, IsMongoId, IsBoolean, IsOptional, IsNumber } from 'class-validator';
 
 export class CreateLivraisonDto {
     @IsString()
@@ -44,7 +44,21 @@ export class CreateLivraisonDto {
     @IsMongoId({ each: true })
     driver: string;
 
-    @IsString()
+    @IsBoolean()
     @IsNotEmpty()
-    status: string;
+    status: Boolean;
+
+    @IsNotEmpty()
+    @IsNumber()
+    quantity: number;
+    @IsOptional()
+    @IsBoolean()
+    Dépôt: boolean;
+    @IsOptional()
+    @IsBoolean()
+    Montage: boolean;
+    @IsOptional()
+    @IsBoolean()
+    Install: boolean;
+
 }

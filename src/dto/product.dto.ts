@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-export class ProdcutCreation {
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+export class ProdcutDto {
 
     @IsNotEmpty()
     @IsString()
@@ -16,4 +16,5 @@ export class ProdcutCreation {
     @IsOptional()
     @IsString()
     image?: string;
+
   }

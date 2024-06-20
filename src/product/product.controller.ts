@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestj
 import { ProductService } from "./product.service";
 import { ConfigService } from "@nestjs/config";
 import { Product } from "src/schema/product.schema";
-import { ProdcutCreation } from "src/dto/product.dto";
+import { ProdcutDto } from "src/dto/product.dto";
 
 
  @Controller('product')
@@ -12,7 +12,7 @@ import { ProdcutCreation } from "src/dto/product.dto";
         private readonly configService: ConfigService,
       ) {}
       @Post()
-        async create(@Body() productDto: ProdcutCreation): Promise<Product> {
+        async create(@Body() productDto: ProdcutDto): Promise<Product> {
             return this.productService.create(productDto);
         }
         @Get()
@@ -24,7 +24,7 @@ import { ProdcutCreation } from "src/dto/product.dto";
             return this.productService.findOne(id);
         }
         @Patch(':id')
-        async update(@Param('id') id: string, @Body() product: Product) {
+        async update(@Param('id') id: string, @Body() product: ProdcutDto) {
             return this.productService.update(id, product);
         }
         @Delete(':id')

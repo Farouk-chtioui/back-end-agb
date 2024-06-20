@@ -38,7 +38,15 @@ export class Livraison extends Document {
     driver: Driver;
 
     @Prop()
-    status: string;
+    status: boolean;
+    @Prop()
+    quantity: number;
+    @Prop()
+    Dépôt: boolean;
+    @Prop()
+    Montage: boolean;
+    @Prop()
+    Install: boolean;
 }
 
 export const LivraisonSchema = SchemaFactory.createForClass(Livraison);
