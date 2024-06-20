@@ -18,20 +18,42 @@ export class LivraisonService {
     async findAll(): Promise<Livraison[]> {
         return this.livraisonModel
             .find()
-            .populate('client')
-            .populate('products')
+            .populate('client', '-password') // Assuming you have a 'client' reference in Livraison schema
+            .populate({
+                path: 'products.productId',
+                model: 'Product',
+            })
             .populate('market')
             .populate('driver')
             .exec();
     }
-    async findbycommande(NumeroCommande: string): Promise<Livraison> {
+
+    async findById(id: string): Promise<Livraison> {
         return this.livraisonModel
-            .findOne({ NumeroCommande })
-            .populate('client')
-            .populate('products')
+            .findById(id)
+            .populate('client', '-password')
+            .populate({
+                path: 'products.productId',
+                model: 'Product',
+            })
             .populate('market')
             .populate('driver')
             .exec();
     }
-    
+
+    async findByCommande(numeroCommande: string): Promise<Livraison[]> {
+        return this.livraisonModel
+            .find({ NumeroCommande: numeroCommande })
+            .populate('client', '-password')
+            .populate({
+                path: 'products.productId',
+                model: 'Product',
+            })
+            .populate('market','-password')
+            .populate('driver','-password')
+            .exec();
+    }
+    async updateStatus(id: string, status: string): Promise<Livraison> {
+        return this.livraisonModel.findByIdAndUpdate(id, { status }, { new: true }) 
+    }
 }

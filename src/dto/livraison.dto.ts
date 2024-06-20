@@ -1,4 +1,26 @@
-import { IsString, IsNotEmpty, IsArray, IsMongoId, IsBoolean, IsOptional, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsMongoId, IsBoolean, IsOptional, IsNumber, ValidateNested, IsArray } from 'class-validator';
+import { Type } from 'class-transformer';
+
+export class ProductDto {
+    @IsMongoId()
+    @IsNotEmpty()
+    productId: string;
+
+    @IsNotEmpty()
+    quantity: number;
+
+    @IsOptional()
+    @IsBoolean()
+    Dépôt?: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    Montage?: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    Install?: boolean;
+}
 
 export class CreateLivraisonDto {
     @IsString()
@@ -31,34 +53,19 @@ export class CreateLivraisonDto {
 
     @IsArray()
     @IsNotEmpty()
-    @IsMongoId({ each: true })
-    products: string[];
+    @ValidateNested({ each: true })
+    @Type(() => ProductDto)
+    products: ProductDto[];
 
-
+    @IsMongoId()
     @IsNotEmpty()
-    @IsMongoId({ each: true })
     market: string;
 
-
+    @IsMongoId()
     @IsNotEmpty()
-    @IsMongoId({ each: true })
     driver: string;
 
     @IsBoolean()
     @IsNotEmpty()
-    status: Boolean;
-
-    @IsNotEmpty()
-    @IsNumber()
-    quantity: number;
-    @IsOptional()
-    @IsBoolean()
-    Dépôt: boolean;
-    @IsOptional()
-    @IsBoolean()
-    Montage: boolean;
-    @IsOptional()
-    @IsBoolean()
-    Install: boolean;
-
+    status: boolean;
 }

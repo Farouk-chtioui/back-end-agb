@@ -17,7 +17,11 @@ export class LivraisonController {
         return this.livraisonService.findAll();
     }
     @Get(':NumeroCommande')
-    async findbycommande(@Param('NumeroCommande') NumeroCommande: string): Promise<Livraison> {
-        return this.livraisonService.findbycommande(NumeroCommande);
+    async findByCommande(@Param('NumeroCommande') NumeroCommande: string): Promise<Livraison[]> {
+        return this.livraisonService.findByCommande(NumeroCommande);
+    }
+    @Post(':id/:status')
+    async updateStatus(@Param('id') id: string, @Param('status') status: string): Promise<Livraison> {
+        return this.livraisonService.updateStatus(id, status);
     }
 }

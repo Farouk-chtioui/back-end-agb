@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Client } from './client.schema';
-import { Product } from './product.schema';
 import { Market } from './market.schema';
 import { Driver } from './driver.schema';
 
@@ -28,8 +27,14 @@ export class Livraison extends Document {
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Client' })
     client: Client;
 
-    @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Product' }] })
-    products: Product[];
+    @Prop({ type: [{ productId: { type: MongooseSchema.Types.ObjectId, ref: 'Product' }, quantity: Number, Dépôt: Boolean, Montage: Boolean, Install: Boolean }] })
+    products: Array<{
+        productId: MongooseSchema.Types.ObjectId;
+        quantity: number;
+        Dépôt: boolean;
+        Montage: boolean;
+        Install: boolean;
+    }>;
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Market' })
     market: Market;
@@ -39,14 +44,6 @@ export class Livraison extends Document {
 
     @Prop()
     status: boolean;
-    @Prop()
-    quantity: number;
-    @Prop()
-    Dépôt: boolean;
-    @Prop()
-    Montage: boolean;
-    @Prop()
-    Install: boolean;
 }
 
 export const LivraisonSchema = SchemaFactory.createForClass(Livraison);
