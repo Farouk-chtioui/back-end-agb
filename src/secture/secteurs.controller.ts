@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
 import { SecteurService } from "./secteurs.service";
 
-@Controller('secteur')
+@Controller('secture')
 export class SecteurController {
     constructor(private readonly secteurService: SecteurService) {}
     @Post()
@@ -9,8 +9,8 @@ export class SecteurController {
         return this.secteurService.create(createSecteurDto);
     }
     @Get()
-    async findAll() {
-        return this.secteurService.findAll();
+    async findAll(@Query('page') page:number ) {
+        return this.secteurService.findAll(page);
     }
     @Get(':id')
     async findOne(@Param('id') id: string) {

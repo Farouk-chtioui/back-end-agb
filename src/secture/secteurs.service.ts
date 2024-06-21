@@ -12,8 +12,9 @@ export class SecteurService {
     return createdSecteur.save();
   }
 
-  async findAll(): Promise<Secteur[]> {
-    return this.secteurModel.find().exec();
+   async findAll(page: number=1, limit: number=6): Promise<Secteur[]> {
+    const skip = (page - 1) * limit;
+    return this.secteurModel.find().skip(skip).limit(limit).exec();
   }
 
   async findOne(id: string): Promise<Secteur> {
