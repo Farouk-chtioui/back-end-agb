@@ -14,6 +14,9 @@ export class ProductService {
         const newProduct = new this.productsModle(product);
         return newProduct.save();
     }
+    async findAllNoPage(): Promise<Product[]> {
+        return this.productsModle.find().exec();
+    }
     async findAll(page: number = 1, limit: number = 6): Promise<Product[]> {
         const skip = (page - 1) * limit;
         return this.productsModle.find().skip(skip).limit(limit).exec();

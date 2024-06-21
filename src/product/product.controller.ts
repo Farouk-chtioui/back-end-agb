@@ -19,6 +19,10 @@ import { ProdcutDto } from "src/dto/product.dto";
         async findAll(@Query('page') page: number){
             return this.productService.findAll(page);
         }
+        @Get('all')
+        async findAllNoPage(){
+            return this.productService.findAllNoPage();
+        }
         @Get(':id')
         async findOne(@Param('id') id: string) {
             return this.productService.findOne(id);
