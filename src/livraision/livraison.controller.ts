@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
 import { LivraisonService } from './livraision.service';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
 import { Livraison } from '../schema/livraision.schema';
@@ -23,5 +23,17 @@ export class LivraisonController {
     @Post(':id/:status')
     async updateStatus(@Param('id') id: string, @Param('status') status: string): Promise<Livraison> {
         return this.livraisonService.updateStatus(id, status);
+    }
+    @Delete(':id')
+    async deleteCommande(@Param('id') id: string): Promise<Livraison> {
+        return this.livraisonService.deleteCommande(id);
+    }
+    @Get(':id')
+    async findById(@Param('id') id: string): Promise<Livraison> {
+        return this.livraisonService.findById(id);
+    }
+    @Patch(':id')
+    async update(@Param('id') id: string, @Body() updateLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
+        return this.livraisonService.updateCommande(id, updateLivraisonDto);
     }
 }

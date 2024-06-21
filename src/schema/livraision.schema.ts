@@ -6,7 +6,7 @@ import { Driver } from './driver.schema';
 
 @Schema()
 export class Livraison extends Document {
-    @Prop({ required: true })
+    @Prop({ required: true  , unique: true})
     NumeroCommande: string;
 
     @Prop()

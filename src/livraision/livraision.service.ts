@@ -56,4 +56,11 @@ export class LivraisonService {
     async updateStatus(id: string, status: string): Promise<Livraison> {
         return this.livraisonModel.findByIdAndUpdate(id, { status }, { new: true }) 
     }
+    async deleteCommande(id: string): Promise<Livraison> {
+        return this.livraisonModel.findByIdAndDelete(id)
+    }
+    async updateCommande(id: string, createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
+        return this.livraisonModel.findByIdAndUpdate(id, createLivraisonDto, { new: true })
+    }
+    
 }
