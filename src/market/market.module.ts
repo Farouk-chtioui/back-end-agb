@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Market,MarketSchema } from '../schema/market.schema';
+import { Market,MarketSchema } from './schema/market.schema';
 import { MarketService } from './services/market.service';
 import { MarketController } from './market.controller';
 

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { Driver } from "src/schema/driver.schema";
+import { Driver } from "src/driver/schema/driver.schema";
 import { DriverDto } from "src/driver/dto/driver.dto";
 import * as crypto from 'bcrypt';
 @Injectable()

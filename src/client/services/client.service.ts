@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { ClientDto } from "src/client/dto/client.dto";
-import { Client } from "src/schema/client.schema";
+import { Client } from "src/client/schema/client.schema";
 
 
 @Injectable()

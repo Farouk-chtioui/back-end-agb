@@ -1,7 +1,7 @@
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Market } from './market.schema';
-import { Secteur } from './secteurs.schema';
+import { Market } from '../../market/schema/market.schema';
+import { Secteur } from '../../secture/schema/secteurs.schema';
 
 @Schema()
 export class Plan extends Document {

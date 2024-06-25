@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
 import { LivraisonService } from './services/livraision.service';
-import { CreateLivraisonDto } from '../product/dto/livraison.dto';
-import { Livraison } from '../schema/livraision.schema';
+import { CreateLivraisonDto } from './dto/livraison.dto';
+import { Livraison } from './schema/livraision.schema';
 
 @Controller('livraison')
 export class LivraisonController {

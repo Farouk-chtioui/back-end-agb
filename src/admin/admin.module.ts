@@ -4,7 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AdminService } from './services/admin.service';
 import { AdminController } from './admin.controller';
-import { Admin, AdminSchema } from '../schema/admin.schema';
+import { Admin, AdminSchema } from './schema/admin.schema';
 
 @Module({
   imports: [

@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LivraisonService } from './services/livraision.service';
 import { LivraisonController } from './livraison.controller';
-import { Livraison, LivraisonSchema } from '../schema/livraision.schema';
-import { Client, ClientSchema } from '../schema/client.schema';
-import { Product, ProductSchema } from '../schema/product.schema';
-import { Market, MarketSchema } from 'src/schema/market.schema';
-import { Driver, DriverSchema } from 'src/schema/driver.schema';
+import { Livraison, LivraisonSchema } from './schema/livraision.schema';
+import { Client, ClientSchema } from '../client/schema/client.schema';
+import { Product, ProductSchema } from '../product/schema/product.schema';
+import { Market, MarketSchema } from 'src/market/schema/market.schema';
+import { Driver, DriverSchema } from 'src/driver/schema/driver.schema';
 
 @Module({
   imports: [

@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { Client } from './client.schema';
-import { Market } from './market.schema';
-import { Driver } from './driver.schema';
+import { Client } from '../../client/schema/client.schema';
+import { Market } from '../../market/schema/market.schema';
+import { Driver } from '../../driver/schema/driver.schema';
 
 @Schema()
 export class Livraison extends Document {

@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { ProdcutDto } from "src/dto/product.dto";
-import { Product } from "src/schema/product.schema";
+import { ProdcutDto } from "src/product/dto/product.dto";
+import { Product } from "src/product/schema/product.schema";
 @Injectable()
 export class ProductService {
     constructor(@InjectModel(Product.name) private productsModle: Model<Product>) {}

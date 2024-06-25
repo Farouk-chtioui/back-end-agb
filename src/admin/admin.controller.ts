@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Patch, Delete, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AdminService } from './services/admin.service';
-import { Admin } from '../schema/admin.schema';
+import { Admin } from './schema/admin.schema';
 import { LoginDto } from 'src/admin/dto/login.dto';
 import { AdminDto } from 'src/admin/dto/admin.dto';
 import { JwtAuthGuard } from '../guard/jwt-auth.guard'; // Adjust the import path as needed

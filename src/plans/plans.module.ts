@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PlansService } from './plans.service';
+import { PlansService } from './services/plans.service';
 import { PlansController } from './plans.controller';
-import { Plan, PlanSchema } from '../schema/plans.schema';
-import { Market, MarketSchema } from '../schema/market.schema';
-import { Secteur, SecteurSchema } from '../schema/secteurs.schema';
+import { Plan, PlanSchema } from './schema/plans.schema';
+import { Market, MarketSchema } from '../market/schema/market.schema';
+import { Secteur, SecteurSchema } from '../secture/schema/secteurs.schema';
 
 @Module({
   imports: [
