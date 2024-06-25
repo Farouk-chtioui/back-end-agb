@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { MarketService } from './market.service';
-import { CreateMarketDto } from 'src/dto/market.dto';
-import { UpdateMarketDto } from 'src/dto/updateMarket.dto';
+import { MarketService } from './services/market.service';
+import { CreateMarketDto } from 'src/market/dto/market.dto';
+import { UpdateMarketDto } from 'src/market/dto/updateMarket.dto';
 
 @Controller('market')
 export class MarketController {

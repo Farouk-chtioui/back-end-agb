@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { LivraisonService } from './livraision.service';
+import { LivraisonService } from './services/livraision.service';
 import { LivraisonController } from './livraison.controller';
 import { Livraison, LivraisonSchema } from '../schema/livraision.schema';
 import { Client, ClientSchema } from '../schema/client.schema';

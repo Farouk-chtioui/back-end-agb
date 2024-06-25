@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { ProductService } from "./product.service";
+import { ProductService } from "./services/product.service";
 import { ConfigService } from "@nestjs/config";
 import { Product } from "src/schema/product.schema";
 import { ProdcutDto } from "src/dto/product.dto";

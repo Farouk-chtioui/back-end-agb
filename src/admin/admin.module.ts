@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AdminService } from './admin.service';
+import { AdminService } from './services/admin.service';
 import { AdminController } from './admin.controller';
 import { Admin, AdminSchema } from '../schema/admin.schema';
 

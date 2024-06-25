@@ -1,7 +1,7 @@
 
 import { Controller, Post, Body, Get, Param, Patch, Delete, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ClientService } from './client.service';
-import { ClientDto } from 'src/dto/client.dto';
+import { ClientDto } from 'src/client/dto/client.dto';
 import { Client } from 'src/schema/client.schema';
 
 @Controller('client')
