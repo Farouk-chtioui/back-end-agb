@@ -4,8 +4,9 @@ import { Model } from "mongoose";
 import { Driver } from "../schema/driver.schema";
 import { DriverDto } from "../dto/driver.dto";
 import * as crypto from 'bcrypt';
+import { DriverServiceInterface } from "../interfaces/driver.interface";
 @Injectable()
-export class DriverService{
+export class DriverService implements DriverServiceInterface{
     constructor(@InjectModel(Driver.name) private driverModel: Model<Driver>){}
     async createDriver(driverDto:DriverDto): Promise<Driver>{
         const hashedPassword = await crypto.hash(driverDto.password, 10);

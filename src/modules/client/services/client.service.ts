@@ -3,10 +3,11 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { ClientDto } from "../dto/client.dto";
 import { Client } from "../schema/client.schema";
+import { ClientServiceInterface } from "../interfaces/client.interface";
 
 
 @Injectable()
-export class ClientService {
+export class ClientService implements ClientServiceInterface {
     constructor(
         @InjectModel(Client.name) private clientModel: Model<Client>
     ) {}

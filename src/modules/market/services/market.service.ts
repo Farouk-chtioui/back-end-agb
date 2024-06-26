@@ -5,8 +5,9 @@ import { Market } from '../schema/market.schema';
 import { CreateMarketDto } from '../dto/market.dto';
 import { UpdateMarketDto } from '../dto/updateMarket.dto';
 import * as crypto from 'bcrypt';
+import { MarketServiceInterface } from '../interfaces/market.interface';
 @Injectable()
-export class MarketService {
+export class MarketService implements MarketServiceInterface {
   constructor(@InjectModel(Market.name) private marketModel: Model<Market>) {}
 
  async createMarket(createmarketDto: CreateMarketDto) {

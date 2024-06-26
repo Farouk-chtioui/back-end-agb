@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Secteur } from '../schema/secteurs.schema';
-
+import { CreateSecteurDto } from '../dto/secture.dto';
+import { SecteurServiceInterface } from '../interfaces/secture.interface';
 @Injectable()
-export class SecteurService {
+export class SecteurService implements SecteurServiceInterface {
   constructor(@InjectModel(Secteur.name) private secteurModel: Model<Secteur>) {}
 
-  async create(createSecteurDto: { name: string; codesPostaux: string[] }): Promise<Secteur> {
+  async create(createSecteurDto: CreateSecteurDto): Promise<Secteur> {
     const createdSecteur = new this.secteurModel(createSecteurDto);
     return createdSecteur.save();
   }

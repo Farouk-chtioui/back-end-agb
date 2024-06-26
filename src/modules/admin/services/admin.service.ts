@@ -7,12 +7,14 @@ import { Admin } from '../schema/admin.schema';
 import { LoginDto } from '../dto/login.dto';
 import { AdminDto } from '../dto/admin.dto';
 import { ConfigService } from '@nestjs/config';
+import { AdminServiceInterface } from '../interfaces/admin.interface';
 
 @Injectable()
-export class AdminService {
+export class AdminService implements AdminServiceInterface {
   constructor(
     @InjectModel(Admin.name) private adminModel: Model<Admin>,
-    private readonly jwtService: JwtService,private readonly configService: ConfigService,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   async create(adminDto: AdminDto): Promise<Admin> {
@@ -49,6 +51,7 @@ export class AdminService {
       throw new UnauthorizedException('Invalid email or password');
     }
   }
+
   getJwtSecret() {
     return { secret: this.configService.get<string>('JWT_SECRET') };
   }

@@ -6,8 +6,8 @@ export class Secteur extends Document {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ type: [String], required: true })
-  codesPostaux: string[];
+  @Prop({ type: [Number], required: true })
+  codesPostaux: number[];
 }
 
 export const SecteurSchema = SchemaFactory.createForClass(Secteur);

@@ -1,0 +1,10 @@
+import { Product } from "../schema/product.schema";
+import { ProdcutDto } from "../dto/product.dto";
+export interface ProductServiceInterface {
+    createProduct(product: ProdcutDto): Promise<Product>;
+    findAll(): Promise<Product[]>;
+    findOne(id: string): Promise<Product>;
+    update(id: string, product: Product): Promise<Product>;
+    delete(id: string): Promise<Product>;
+    searchProduct(searchTerm: string): Promise<Product[]>;
+}

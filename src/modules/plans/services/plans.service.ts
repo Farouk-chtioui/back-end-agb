@@ -3,15 +3,16 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreatePlanDto } from "../dto/plan.dto";
 import { Plan } from "../schema/plans.schema";
+import { PlanServiceInterface } from "../interfaces/plans.interface";
 
 
 
 @Injectable()
-export class PlansService {
+export class PlansService implements PlanServiceInterface {
     constructor(
         @InjectModel(Plan.name) private planModel: Model<Plan>,
     ) {}
-    async create(createPlanDto: CreatePlanDto): Promise<Plan> {
+    async createPlan(createPlanDto: CreatePlanDto): Promise<Plan> {
         const createdPlan = new this.planModel(createPlanDto);
         return createdPlan.save();
     }

@@ -3,8 +3,9 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { ProdcutDto } from "../dto/product.dto";
 import { Product } from "../schema/product.schema";
+import { ProductServiceInterface } from "../interfaces/product.interface";
 @Injectable()
-export class ProductService {
+export class ProductService implements ProductServiceInterface {
     constructor(@InjectModel(Product.name) private productsModle: Model<Product>) {}
     async createProduct(product: Product): Promise<Product>{
         const newProduct = new this.productsModle(product);

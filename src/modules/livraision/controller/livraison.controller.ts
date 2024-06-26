@@ -9,7 +9,7 @@ export class LivraisonController {
 
     @Post()
     async create(@Body() createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
-        return this.livraisonService.create(createLivraisonDto);
+        return this.livraisonService.createLivraison(createLivraisonDto);
     }
 
     @Get()

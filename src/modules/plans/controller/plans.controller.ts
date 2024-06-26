@@ -8,7 +8,7 @@ export class PlansController {
 
   @Post()
   create(@Body() createPlanDto: CreatePlanDto) {
-    return this.plansService.create(createPlanDto);
+    return this.plansService.createPlan(createPlanDto);
   }
 
   @Get()
