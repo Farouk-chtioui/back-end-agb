@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Secteur } from '../schema/secteurs.schema';
 import { CreateSecteurDto } from '../dto/secture.dto';
 import { SecteurServiceInterface } from '../interfaces/secture.interface';
+import { UpdateSecteurDto } from '../dto/updateSecture.dto';
 @Injectable()
 export class SecteurService implements SecteurServiceInterface {
   constructor(@InjectModel(Secteur.name) private secteurModel: Model<Secteur>) {}
@@ -22,9 +23,10 @@ export class SecteurService implements SecteurServiceInterface {
     return this.secteurModel.findById(id).exec();
   }
 
-  async update(id: string, updateSecteurDto: { name?: string; codesPostaux?: string[] }): Promise<Secteur> {
+  async update(id: string, updateSecteurDto: UpdateSecteurDto): Promise<Secteur> {
     return this.secteurModel.findByIdAndUpdate(id, updateSecteurDto, { new: true }).exec();
   }
+
 
   async delete(id: string): Promise<Secteur> {
     return this.secteurModel.findByIdAndDelete(id).exec();
