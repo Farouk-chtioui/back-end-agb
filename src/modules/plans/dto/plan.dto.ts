@@ -1,15 +1,17 @@
-import { IsOptional, ValidateIf, IsMongoId } from "class-validator";
+import { IsOptional, IsMongoId, IsArray } from 'class-validator';
 
 export class CreatePlanDto {
     readonly market: string;
 
     @IsOptional()
-    @ValidateIf((o) => o.secteurMatinal !== '')
-    @IsMongoId()
-    readonly secteurMatinal: string;
+    @IsArray()
+    @IsMongoId({ each: true })
+    readonly secteurMatinal: string[];
 
     @IsOptional()
-    readonly secteurApresMidi: string;
+    @IsArray()
+    @IsMongoId({ each: true })
+    readonly secteurApresMidi: string[];
 
     readonly Date: string;
     readonly totalMidi: number;

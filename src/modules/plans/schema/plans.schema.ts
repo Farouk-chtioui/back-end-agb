@@ -5,22 +5,23 @@ import { Secteur } from '../../secture/schema/secteurs.schema';
 
 @Schema()
 export class Plan extends Document {
-    @Prop({ required: true })
-    Date: string;
+  @Prop({ required: true })
+  Date: string;
 
-    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Market' })
-    market: Market;
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Market' })
+  market: Market;
 
-    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Secteur' })
-    secteurMatinal: Secteur|null;
+  @Prop([{ type: MongooseSchema.Types.ObjectId, ref: 'Secteur' }])
+  secteurMatinal: (Secteur | null)[];
 
-    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Secteur' })
-    secteurApresMidi: Secteur|null; 
+  @Prop([{ type: MongooseSchema.Types.ObjectId, ref: 'Secteur' }])
+  secteurApresMidi: (Secteur | null)[];
 
-    @Prop()
-    totalMidi: number;
+  @Prop()
+  totalMidi: number;
 
-    @Prop()
-    totalMatin: number;
+  @Prop()
+  totalMatin: number;
 }
+
 export const PlanSchema = SchemaFactory.createForClass(Plan);
