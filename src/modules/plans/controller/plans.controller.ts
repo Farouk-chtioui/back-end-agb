@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
 import { PlansService } from '../services/plans.service';
 import { CreatePlanDto } from '../dto/plan.dto';
+import { UpdatePlanDto } from '../dto/updatePlan.dto';
 
 @Controller('plans')
 export class PlansController {
@@ -31,5 +32,10 @@ export class PlansController {
   @Delete(':id')
   deletePlan(@Param('id') id: string) {
     return this.plansService.deletePlan(id);
+  }
+
+  @Patch(':id')
+  updatePlan(@Param('id') id: string, @Body() updatePlanDto: UpdatePlanDto) {
+    return this.plansService.updatePlan(id, updatePlanDto);
   }
 }
