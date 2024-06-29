@@ -1,10 +1,11 @@
+// src/modules/admin/admin.module.ts
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AdminService } from './services/admin.service';
 import { AdminController } from './controller/admin.controller';
 import { Admin, AdminSchema } from './schema/admin.schema';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -12,14 +13,7 @@ import { Admin, AdminSchema } from './schema/admin.schema';
       isGlobal: true,
     }),
     MongooseModule.forFeature([{ name: Admin.name, schema: AdminSchema }]),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: '1h' },
-      }),
-      inject: [ConfigService],
-    }),
+    AuthModule,
   ],
   providers: [AdminService],
   controllers: [AdminController],

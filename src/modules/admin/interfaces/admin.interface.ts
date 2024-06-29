@@ -1,6 +1,6 @@
 
 import { Admin } from '../schema/admin.schema';
-import { LoginDto } from '../dto/login.dto';
+import { LoginDto } from '../../auth/dto/login.dto';
 import { AdminDto } from '../dto/admin.dto';
 
 export interface AdminServiceInterface {

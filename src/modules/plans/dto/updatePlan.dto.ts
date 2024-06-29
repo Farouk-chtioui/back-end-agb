@@ -1,29 +1,32 @@
-import { IsOptional, IsString, IsDateString, IsMongoId, ValidateIf, IsNumber } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsArray, IsOptional, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
+import { Secteur } from '../../secture/schema/secteurs.schema';
+import { Market } from '../../market/schema/market.schema';
 
 export class UpdatePlanDto {
   @IsOptional()
-  @IsString()
-  readonly market?: string;
-
-  @IsOptional()
-  @ValidateIf((o) => o.secteurMatinal !== '')
-  @IsMongoId()
-  readonly secteurMatinal?: string;
-
-  @IsOptional()
-  @ValidateIf((o) => o.secteurApresMidi !== '')
-  @IsString()
-  readonly secteurApresMidi?: string;
-
-  @IsOptional()
   @IsDateString()
-  readonly Date?: string;
+  Date?: string;
+
+  @IsOptional()
+  @Type(() => Market)
+  market?: Market;
+
+  @IsOptional()
+  @IsArray()
+  @Type(() => Secteur)
+  secteurMatinal?: Secteur[];
+
+  @IsOptional()
+  @IsArray()
+  @Type(() => Secteur)
+  secteurApresMidi?: Secteur[];
 
   @IsOptional()
   @IsNumber()
-  readonly totalMidi?: number;
+  totalMatin?: number;
 
   @IsOptional()
   @IsNumber()
-  readonly totalMatin?: number;
+  totalMidi?: number;
 }

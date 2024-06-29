@@ -1,19 +1,27 @@
-import { IsOptional, IsMongoId, IsArray } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsArray, IsOptional, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
+import { Secteur } from '../../secture/schema/secteurs.schema';
+import { Market } from '../../market/schema/market.schema';
 
 export class CreatePlanDto {
-    readonly market: string;
+  @IsDateString()
+  @IsNotEmpty()
+  Date: string;
 
-    @IsOptional()
-    @IsArray()
-    @IsMongoId({ each: true })
-    readonly secteurMatinal: string[];
+  @Type(() => Market)
+  market: Market;
 
-    @IsOptional()
-    @IsArray()
-    @IsMongoId({ each: true })
-    readonly secteurApresMidi: string[];
+  @IsArray()
+  @Type(() => Secteur)
+  secteurMatinal: Secteur[];
 
-    readonly Date: string;
-    readonly totalMidi: number;
-    readonly totalMatin: number;
+  @IsArray()
+  @Type(() => Secteur)
+  secteurApresMidi: Secteur[];
+
+  @IsNumber()
+  totalMatin: number;
+
+  @IsNumber()
+  totalMidi: number;
 }

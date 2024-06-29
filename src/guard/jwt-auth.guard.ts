@@ -16,6 +16,7 @@ export class JwtAuthGuard implements CanActivate {
     const authHeader = request.headers.authorization;
 
     if (!authHeader) {
+      console.log('No auth header');
       return false;
     }
 
@@ -25,8 +26,10 @@ export class JwtAuthGuard implements CanActivate {
       const secret = this.configService.get<string>('JWT_SECRET');
       const payload = this.jwtService.verify(token, { secret });
       request.user = payload;
+      console.log('Token valid, payload:', payload);
       return true;
     } catch (error) {
+      console.log('Token invalid:', error.message);
       return false;
     }
   }

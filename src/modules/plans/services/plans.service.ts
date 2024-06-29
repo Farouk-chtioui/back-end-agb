@@ -48,8 +48,8 @@ export class PlansService implements PlanServiceInterface {
     async updatePlan(id: string, updatePlanDto: UpdatePlanDto): Promise<Plan> {
         const updateData = {
             ...updatePlanDto,
-            secteurMatinal: updatePlanDto.secteurMatinal || null,
-            secteurApresMidi: updatePlanDto.secteurApresMidi || null,
+            secteurMatinal: updatePlanDto.secteurMatinal?.length ? updatePlanDto.secteurMatinal : null,
+            secteurApresMidi: updatePlanDto.secteurApresMidi?.length ? updatePlanDto.secteurApresMidi : null,
         };
         return this.planModel.findByIdAndUpdate(id, updateData, { new: true })
             .populate('market')
