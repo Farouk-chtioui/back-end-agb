@@ -19,14 +19,11 @@ export class MarketController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @RolesDecorator(Roles.Market)
   findAll(@Query('page') page: number) {
     return this.marketService.getsMarkets(page);
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @RolesDecorator(Roles.Market)
   findOne(@Param('id') id: number) {
     return this.marketService.getUserById(id);
@@ -47,7 +44,6 @@ export class MarketController {
   }
 
   @Get('search/:name')
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @RolesDecorator(Roles.Market)
   async searchMarket(@Param('name') name: string) {
     return this.marketService.searchMarket(name);
