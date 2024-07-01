@@ -3,9 +3,9 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } f
 import { MarketService } from '../services/market.service';
 import { CreateMarketDto } from '../dto/market.dto';
 import { UpdateMarketDto } from '../dto/updateMarket.dto';
-import { JwtAuthGuard } from '../../../guard/jwt-auth.guard';
-import { RolesGuard } from '../../../guard/roles.guard';
-import { RolesDecorator } from '../../../decorators/roles.decorator';
+import { JwtAuthGuard } from '../../shared/guard/jwt-auth.guard';
+import { RolesGuard } from '../../shared/guard/roles.guard';
+import { RolesDecorator } from '../../shared/decorators/roles.decorator';
 import { LoginDto } from '../../auth/dto/login.dto';
 import { Roles } from '../../../enums/roles.enum';
 

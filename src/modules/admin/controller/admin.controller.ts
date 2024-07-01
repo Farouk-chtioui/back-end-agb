@@ -3,9 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { AdminService } from '../services/admin.service';
 import { Admin } from '../schema/admin.schema';
 import { AdminDto } from '../dto/admin.dto';
-import { JwtAuthGuard } from '../../../guard/jwt-auth.guard';
-import { RolesGuard } from '../../../guard/roles.guard';
-import { RolesDecorator } from '../../../decorators/roles.decorator';
+import { JwtAuthGuard } from '../../shared/guard/jwt-auth.guard';
+import { RolesGuard } from '../../shared/guard/roles.guard';
+import { RolesDecorator } from '../../shared/decorators/roles.decorator';
 import { LoginDto } from '../../auth/dto/login.dto';
 import { Roles } from '../../../enums/roles.enum';
 
