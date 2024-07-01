@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, BadRequestException } from '@nestjs/common';
 import { PlansService } from '../services/plans.service';
 import { CreatePlanDto } from '../dto/plan.dto';
 import { UpdatePlanDto } from '../dto/updatePlan.dto';
@@ -27,8 +27,6 @@ export class PlansController {
     return this.plansService.findByDate(date);
   }
 
-
-
   @Delete(':id')
   deletePlan(@Param('id') id: string) {
     return this.plansService.deletePlan(id);
@@ -36,6 +34,9 @@ export class PlansController {
 
   @Patch(':id')
   updatePlan(@Param('id') id: string, @Body() updatePlanDto: UpdatePlanDto) {
+    if (!updatePlanDto.Date) {
+      throw new BadRequestException('Date is required');
+    }
     return this.plansService.updatePlan(id, updatePlanDto);
   }
 }

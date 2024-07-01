@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreatePlanDto } from "../dto/plan.dto";
@@ -42,7 +42,11 @@ export class PlansService implements PlanServiceInterface {
     }
 
     async deletePlan(id: string): Promise<Plan> {
-        return this.planModel.findByIdAndDelete(id);
+        const deletedPlan = await this.planModel.findByIdAndDelete(id);
+        if (!deletedPlan) {
+            throw new NotFoundException(`Plan with ID ${id} not found`);
+        }
+        return deletedPlan;
     }
 
     async updatePlan(id: string, updatePlanDto: UpdatePlanDto): Promise<Plan> {
@@ -51,10 +55,17 @@ export class PlansService implements PlanServiceInterface {
             secteurMatinal: updatePlanDto.secteurMatinal?.length ? updatePlanDto.secteurMatinal : null,
             secteurApresMidi: updatePlanDto.secteurApresMidi?.length ? updatePlanDto.secteurApresMidi : null,
         };
-        return this.planModel.findByIdAndUpdate(id, updateData, { new: true })
+
+        const updatedPlan = await this.planModel.findByIdAndUpdate(id, updateData, { new: true })
             .populate('market')
             .populate('secteurMatinal')
             .populate('secteurApresMidi')
             .exec();
+
+        if (!updatedPlan) {
+            throw new NotFoundException(`Plan with ID ${id} not found`);
+        }
+
+        return updatedPlan;
     }
 }
