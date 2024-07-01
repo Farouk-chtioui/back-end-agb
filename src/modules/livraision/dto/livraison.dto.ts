@@ -68,6 +68,6 @@ export class CreateLivraisonDto {
     driver: string;
 
     @IsEnum(Status)
-    @IsNotEmpty()
-    status: Status;
+    @IsOptional()
+    status?: Status;
 }
