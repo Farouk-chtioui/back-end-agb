@@ -51,7 +51,7 @@ export class Livraison extends Document {
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Driver' })
     driver: Driver;
 
-    @Prop({ type: String, enum: Object.values(Status), required: true })
+    @Prop({ type: String, enum: Object.values(Status), default: Status.EN_ATTENTE })
     status: Status;
 }
 
