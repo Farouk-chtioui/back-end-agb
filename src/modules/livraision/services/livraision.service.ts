@@ -4,9 +4,10 @@ import { Model } from 'mongoose';
 import { Livraison } from '../schema/livraision.schema';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
 import { LivraisonServiceInterface } from '../interfaces/livraision.interface';
+import { Status } from '../../../enums/status.enum';
 
 @Injectable()
-export class LivraisonService implements LivraisonServiceInterface{
+export class LivraisonService implements LivraisonServiceInterface {
     constructor(
         @InjectModel(Livraison.name) private livraisonModel: Model<Livraison>,
     ) {}
@@ -50,18 +51,20 @@ export class LivraisonService implements LivraisonServiceInterface{
                 path: 'products.productId',
                 model: 'Product',
             })
-            .populate('market','-password')
-            .populate('driver','-password')
+            .populate('market', '-password')
+            .populate('driver', '-password')
             .exec();
     }
-    async updateStatus(id: string, status: string): Promise<Livraison> {
-        return this.livraisonModel.findByIdAndUpdate(id, { status }, { new: true }) 
+
+    async updateStatus(id: string, status: Status): Promise<Livraison> {
+        return this.livraisonModel.findByIdAndUpdate(id, { status }, { new: true }).exec();
     }
+
     async deleteCommande(id: string): Promise<Livraison> {
-        return this.livraisonModel.findByIdAndDelete(id)
+        return this.livraisonModel.findByIdAndDelete(id).exec();
     }
+
     async updateCommande(id: string, createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
-        return this.livraisonModel.findByIdAndUpdate(id, createLivraisonDto, { new: true })
+        return this.livraisonModel.findByIdAndUpdate(id, createLivraisonDto, { new: true }).exec();
     }
-    
 }

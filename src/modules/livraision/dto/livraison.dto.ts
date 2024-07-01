@@ -1,5 +1,6 @@
-import { IsString, IsNotEmpty, IsMongoId, IsBoolean, IsOptional, IsNumber, ValidateNested, IsArray } from 'class-validator';
+import { IsString, IsNotEmpty, IsMongoId, IsBoolean, IsOptional, IsNumber, ValidateNested, IsArray, IsEnum } from 'class-validator';
 import { Type } from 'class-transformer';
+import { Status } from '../../../enums/status.enum';
 
 export class ProductDto {
     @IsMongoId()
@@ -7,6 +8,7 @@ export class ProductDto {
     productId: string;
 
     @IsNotEmpty()
+    @IsNumber()
     quantity: number;
 
     @IsOptional()
@@ -28,15 +30,15 @@ export class CreateLivraisonDto {
     NumeroCommande: string;
 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     Référence: string;
 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     part_du_magasin: string;
 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     Observations: string;
 
     @IsString()
@@ -44,7 +46,7 @@ export class CreateLivraisonDto {
     Date: string;
 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     Periode: string;
 
     @IsMongoId()
@@ -65,7 +67,7 @@ export class CreateLivraisonDto {
     @IsNotEmpty()
     driver: string;
 
-    @IsBoolean()
+    @IsEnum(Status)
     @IsNotEmpty()
-    status: boolean;
+    status: Status;
 }

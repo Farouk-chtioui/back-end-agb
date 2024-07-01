@@ -3,10 +3,11 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Client } from '../../client/schema/client.schema';
 import { Market } from '../../market/schema/market.schema';
 import { Driver } from '../../driver/schema/driver.schema';
+import { Status } from '../../../enums/status.enum';
 
 @Schema()
 export class Livraison extends Document {
-    @Prop({ required: true  , unique: true})
+    @Prop({ required: true, unique: true })
     NumeroCommande: string;
 
     @Prop()
@@ -27,7 +28,15 @@ export class Livraison extends Document {
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Client' })
     client: Client;
 
-    @Prop({ type: [{ productId: { type: MongooseSchema.Types.ObjectId, ref: 'Product' }, quantity: Number, Dépôt: Boolean, Montage: Boolean, Install: Boolean }] })
+    @Prop({
+        type: [{
+            productId: { type: MongooseSchema.Types.ObjectId, ref: 'Product' },
+            quantity: Number,
+            Dépôt: Boolean,
+            Montage: Boolean,
+            Install: Boolean
+        }]
+    })
     products: Array<{
         productId: MongooseSchema.Types.ObjectId;
         quantity: number;
@@ -42,8 +51,8 @@ export class Livraison extends Document {
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Driver' })
     driver: Driver;
 
-    @Prop()
-    status: boolean;
+    @Prop({ type: String, enum: Object.values(Status), required: true })
+    status: Status;
 }
 
 export const LivraisonSchema = SchemaFactory.createForClass(Livraison);
