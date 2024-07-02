@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, Put } from '@nestjs/common';
 import { LivraisonService } from '../services/livraision.service';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
+import { UpdateLivraisonStatusDto } from '../dto/update-livraison-status.dto'; // Import the new DTO
 import { Livraison } from '../schema/livraision.schema';
 import { Status } from '../../../enums/status.enum';
 
@@ -23,8 +24,9 @@ export class LivraisonController {
         return this.livraisonService.findByCommande(NumeroCommande);
     }
 
-    @Post(':id/:status')
-    async updateStatus(@Param('id') id: string, @Param('status') status: Status): Promise<Livraison> {
+    @Patch(':id/status')
+    async updateStatus(@Param('id') id: string, @Body() updateLivraisonStatusDto: UpdateLivraisonStatusDto): Promise<Livraison> {
+        const { status } = updateLivraisonStatusDto;
         return this.livraisonService.updateStatus(id, status);
     }
 
@@ -38,7 +40,7 @@ export class LivraisonController {
         return this.livraisonService.findById(id);
     }
 
-    @Patch(':id')
+    @Put(':id')
     async update(@Param('id') id: string, @Body() updateLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         return this.livraisonService.updateCommande(id, updateLivraisonDto);
     }
