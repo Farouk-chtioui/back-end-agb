@@ -1,4 +1,3 @@
-// src/modules/market/controllers/market.controller.ts
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { MarketService } from '../services/market.service';
 import { CreateMarketDto } from '../dto/market.dto';
@@ -14,6 +13,8 @@ export class MarketController {
   constructor(private readonly marketService: MarketService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @RolesDecorator(Roles.Admin)
   create(@Body() createMarketDto: CreateMarketDto) {
     return this.marketService.createMarket(createMarketDto);
   }
@@ -24,27 +25,28 @@ export class MarketController {
   }
 
   @Get(':id')
-  @RolesDecorator(Roles.Market)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @RolesDecorator(Roles.Admin)
   findOne(@Param('id') id: number) {
     return this.marketService.getUserById(id);
   }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @RolesDecorator(Roles.Market)
+  @RolesDecorator(Roles.Admin)
   update(@Param('id') id: number, @Body() updateMarketDto: UpdateMarketDto) {
     return this.marketService.updateUser(id, updateMarketDto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @RolesDecorator(Roles.Market)
+  @RolesDecorator(Roles.Admin)
   remove(@Param('id') id: number) {
     return this.marketService.deleteUser(id);
   }
 
   @Get('search/:name')
-  @RolesDecorator(Roles.Market)
+  @RolesDecorator(Roles.Admin)
   async searchMarket(@Param('name') name: string) {
     return this.marketService.searchMarket(name);
   }
