@@ -1,4 +1,4 @@
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema()
@@ -6,7 +6,7 @@ export class Secteur extends Document {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ type: [Number], required: true })
+  @Prop({ required: true })
   codesPostaux: number[];
 }
 
