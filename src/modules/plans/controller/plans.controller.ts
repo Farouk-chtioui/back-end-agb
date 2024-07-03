@@ -1,3 +1,4 @@
+// plans.controller.ts
 import { Controller, Get, Post, Body, Param, Delete, Patch, BadRequestException } from '@nestjs/common';
 import { PlansService } from '../services/plans.service';
 import { CreatePlanDto } from '../dto/plan.dto';
@@ -34,9 +35,6 @@ export class PlansController {
 
   @Patch(':id')
   updatePlan(@Param('id') id: string, @Body() updatePlanDto: UpdatePlanDto) {
-    if (!updatePlanDto.Date) {
-      throw new BadRequestException('Date is required');
-    }
     return this.plansService.updatePlan(id, updatePlanDto);
   }
 }

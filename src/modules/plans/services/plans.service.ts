@@ -1,3 +1,4 @@
+// plans.service.ts
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
@@ -50,13 +51,7 @@ export class PlansService implements PlanServiceInterface {
     }
 
     async updatePlan(id: string, updatePlanDto: UpdatePlanDto): Promise<Plan> {
-        const updateData = {
-            ...updatePlanDto,
-            secteurMatinal: updatePlanDto.secteurMatinal?.length ? updatePlanDto.secteurMatinal : null,
-            secteurApresMidi: updatePlanDto.secteurApresMidi?.length ? updatePlanDto.secteurApresMidi : null,
-        };
-
-        const updatedPlan = await this.planModel.findByIdAndUpdate(id, updateData, { new: true })
+        const updatedPlan = await this.planModel.findByIdAndUpdate(id, { $set: updatePlanDto }, { new: true })
             .populate('market')
             .populate('secteurMatinal')
             .populate('secteurApresMidi')

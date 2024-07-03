@@ -1,3 +1,4 @@
+// plans.schema.ts
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Market } from '../../market/schema/market.schema';
@@ -22,6 +23,9 @@ export class Plan extends Document {
 
   @Prop()
   totalMatin: number;
+
+  @Prop()
+  notes: string;
 }
 
 export const PlanSchema = SchemaFactory.createForClass(Plan);
