@@ -56,7 +56,8 @@ export class PlansService implements PlanServiceInterface {
     async updatePlan(id: string, updatePlanDto: UpdatePlanDto): Promise<Plan> {
         const transformedPlan = plainToClass(UpdatePlanDto, updatePlanDto);
 
-        if (updatePlanDto.market === null || updatePlanDto.market === undefined) {
+        // Set market to null if it is explicitly null or undefined
+        if (updatePlanDto.market === undefined || updatePlanDto.market === null) {
             transformedPlan.market = null;
         }
 
