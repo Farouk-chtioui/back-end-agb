@@ -25,6 +25,9 @@ export class SecteurController {
     async delete(@Param('id') id: string) {
         return this.secteurService.delete(id);
     }
-    
+    @Get('search/:name')
+    async search(@Param('name') name: string) {
+        return this.secteurService.search(name);
+    }
     
 }

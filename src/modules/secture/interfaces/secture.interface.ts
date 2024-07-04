@@ -7,5 +7,6 @@ export interface SecteurServiceInterface {
     findOne(id: string): Promise<Secteur>;
     update(id: string, updateSecteurDto: UpdateSecteurDto): Promise<Secteur>;
     delete(id: string): Promise<Secteur>;
+    search(name: string): Promise<Secteur[]>;
    
 }

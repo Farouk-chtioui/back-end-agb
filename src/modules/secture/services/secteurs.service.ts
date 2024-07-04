@@ -31,4 +31,7 @@ export class SecteurService implements SecteurServiceInterface {
   async delete(id: string): Promise<Secteur> {
     return this.secteurModel.findByIdAndDelete(id).exec();
   }
+  async search(name: string): Promise<Secteur[]> {
+    return this.secteurModel.find({name: {$regex: name, $options: 'i'}}).exec();
+  }
 }
