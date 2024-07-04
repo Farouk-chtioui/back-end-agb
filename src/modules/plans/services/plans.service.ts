@@ -54,10 +54,12 @@ export class PlansService implements PlanServiceInterface {
     }
 
     async updatePlan(id: string, updatePlanDto: UpdatePlanDto): Promise<Plan> {
-        if (!updatePlanDto.market) {
-            delete updatePlanDto.market;
-        }
         const transformedPlan = plainToClass(UpdatePlanDto, updatePlanDto);
+
+        if (updatePlanDto.market === null || updatePlanDto.market === undefined) {
+            transformedPlan.market = null;
+        }
+
         const updatedPlan = await this.planModel.findByIdAndUpdate(id, { $set: transformedPlan }, { new: true })
             .populate('market')
             .populate('secteurMatinal')

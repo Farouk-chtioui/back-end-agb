@@ -1,5 +1,5 @@
 // updatePlan.dto.ts
-import { IsDateString, IsNotEmpty, IsArray, IsOptional, IsNumber, IsString } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsArray, IsOptional, IsNumber, IsString, IsMongoId } from 'class-validator';
 import { Type } from 'class-transformer';
 import { Secteur } from '../../secture/schema/secteurs.schema';
 import { Market } from '../../market/schema/market.schema';
@@ -10,8 +10,8 @@ export class UpdatePlanDto {
   Date?: string;
 
   @IsOptional()
-  @Type(() => Market)
-  market?: Market;
+  @IsMongoId({ message: 'Invalid market ID' })
+  market?: string | null;
 
   @IsOptional()
   @IsArray()
