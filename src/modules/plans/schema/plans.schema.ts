@@ -10,7 +10,7 @@ export class Plan extends Document {
   Date: string;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Market' })
-  market: Market;
+  market: Market| null;
 
   @Prop([{ type: MongooseSchema.Types.ObjectId, ref: 'Secteur' }])
   secteurMatinal: (Secteur | null)[];

@@ -14,6 +14,9 @@ export class PlansService implements PlanServiceInterface {
     ) {}
 
     async createPlan(createPlanDto: CreatePlanDto): Promise<Plan> {
+        if (!createPlanDto.market) {
+            delete createPlanDto.market;
+        }
         const createdPlan = new this.planModel(createPlanDto);
         return createdPlan.save();
     }
@@ -51,6 +54,9 @@ export class PlansService implements PlanServiceInterface {
     }
 
     async updatePlan(id: string, updatePlanDto: UpdatePlanDto): Promise<Plan> {
+        if (!updatePlanDto.market) {
+            delete updatePlanDto.market;
+        }
         const transformedPlan = plainToClass(UpdatePlanDto, updatePlanDto);
         const updatedPlan = await this.planModel.findByIdAndUpdate(id, { $set: transformedPlan }, { new: true })
             .populate('market')

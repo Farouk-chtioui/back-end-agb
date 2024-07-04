@@ -1,4 +1,3 @@
-// plan.dto.ts
 import { IsDateString, IsNotEmpty, IsArray, IsOptional, IsNumber, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 import { Secteur } from '../../secture/schema/secteurs.schema';
@@ -9,8 +8,9 @@ export class CreatePlanDto {
   @IsNotEmpty()
   Date: string;
 
+  @IsOptional()
   @Type(() => Market)
-  market: Market;
+  market?: Market;
 
   @IsArray()
   @Type(() => Secteur)
@@ -26,6 +26,7 @@ export class CreatePlanDto {
   @IsNumber()
   totalMidi: number;
 
+  @IsOptional()
   @IsString()
-  notes: string;
+  notes?: string;
 }
