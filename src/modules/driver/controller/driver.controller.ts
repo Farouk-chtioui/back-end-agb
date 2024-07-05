@@ -27,13 +27,11 @@ import {
       return this.driverService.createDriver(driver);
     }
   
-    @UseGuards(JwtAuthGuard)
     @Get()
     async findAll(@Query('page') page: number) {
       return this.driverService.findAll(page);
     }
   
-    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async findOne(@Param('id') id: string) {
       return this.driverService.findOne(id);
