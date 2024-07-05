@@ -13,8 +13,7 @@ export class MarketController {
   constructor(private readonly marketService: MarketService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @RolesDecorator(Roles.Admin)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createMarketDto: CreateMarketDto) {
     return this.marketService.createMarket(createMarketDto);
   }
@@ -25,28 +24,24 @@ export class MarketController {
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @RolesDecorator(Roles.Admin)
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: number) {
     return this.marketService.getUserById(id);
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @RolesDecorator(Roles.Admin)
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: number, @Body() updateMarketDto: UpdateMarketDto) {
     return this.marketService.updateUser(id, updateMarketDto);
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @RolesDecorator(Roles.Admin)
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: number) {
     return this.marketService.deleteUser(id);
   }
 
   @Get('search/:name')
-  @RolesDecorator(Roles.Admin)
   async searchMarket(@Param('name') name: string) {
     return this.marketService.searchMarket(name);
   }
