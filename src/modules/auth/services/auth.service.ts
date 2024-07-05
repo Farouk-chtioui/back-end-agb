@@ -20,7 +20,7 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async login(loginDto: LoginDto): Promise<{ token: string, role: Roles }> {
+  async login(loginDto: LoginDto): Promise<{ token: string, role: Roles, userId: string }> {
     const { email, password } = loginDto;
 
     const userChecks: { model: Model<any>, role: Roles }[] = [
@@ -31,13 +31,15 @@ export class AuthService {
 
     for (const { model, role } of userChecks) {
       const user = await model.findOne({ email }).exec();
-      if (user && await bcrypt.compare(password, user.password)) {
-        console.log(`Login successful for ${role}: ${user.email}`);
-        const payload = { username: user.name || user.first_name, sub: user._id, role };
-        const token = this.jwtService.sign(payload, {
-          expiresIn: loginDto.rememberMe ? '30d' : '1h',
-        });
-        return { token, role };
+      if (user) {
+        console.log(`User found in model: ${model.modelName}, role: ${role}`);
+        if (await bcrypt.compare(password, user.password)) {
+          const payload = { username: user.name || user.first_name, sub: user._id, role };
+          const token = this.jwtService.sign(payload, {
+            expiresIn: loginDto.rememberMe ? '30d' : '1h',
+          });
+          return { token, role, userId: user._id.toString() };
+        }
       }
     }
 

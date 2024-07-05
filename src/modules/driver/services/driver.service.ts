@@ -60,12 +60,12 @@ export class DriverService implements DriverServiceInterface {
     }).exec();
   }
 
-  async login(loginDto: LoginDto): Promise<{ token: string, role: string }> {
-    const { token, role } = await this.authService.login(loginDto);
+  async login(loginDto: LoginDto): Promise<{ token: string, role: string, userId: string }> {
+    const { token, role, userId } = await this.authService.login(loginDto);
     console.log(`DriverService login - role: ${role}`);
     if (role !== Roles.Driver) {
       throw new UnauthorizedException('Invalid login for driver');
     }
-    return { token, role };
+    return { token, role, userId };
   }
 }
