@@ -36,8 +36,10 @@ export class AuthService {
         if (await bcrypt.compare(password, user.password)) {
           const payload = { username: user.name || user.first_name, sub: user._id, role };
           const token = this.jwtService.sign(payload, {
+            secret: this.configService.get<string>('JWT_SECRET'),
             expiresIn: loginDto.rememberMe ? '30d' : '1h',
           });
+          console.log(`Generated token: ${token}`); // Debugging statement
           return { token, role, userId: user._id.toString() };
         }
       }
@@ -46,10 +48,25 @@ export class AuthService {
     throw new UnauthorizedException('Invalid email or password');
   }
 
-  createToken(payload: any): string {
-    return this.jwtService.sign(payload, {
-      secret: this.configService.get<string>('JWT_SECRET'),
-      expiresIn: '1h',
-    });
+  async refreshToken(token: string): Promise<{ token: string }> {
+    try {
+      const payload = this.jwtService.verify(token, {
+        secret: this.configService.get<string>('JWT_SECRET'),
+        ignoreExpiration: true,
+      });
+
+      const newToken = this.jwtService.sign(
+        { username: payload.username, sub: payload.sub, role: payload.role },
+        {
+          secret: this.configService.get<string>('JWT_SECRET'),
+          expiresIn: '1h',
+        },
+      );
+      console.log(`Refreshed token: ${newToken}`); // Debugging statement
+      return { token: newToken };
+    } catch (error) {
+      console.error('Token verification failed:', error); // Debugging statement
+      throw new UnauthorizedException('Invalid token');
+    }
   }
 }
