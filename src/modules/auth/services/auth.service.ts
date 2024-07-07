@@ -1,3 +1,4 @@
+// src/modules/auth/services/auth.service.ts
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -21,7 +22,7 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto): Promise<{ token: string, role: Roles, userId: string }> {
-    const { email, password } = loginDto;
+    const { email, password, rememberMe } = loginDto;
 
     const userChecks: { model: Model<any>, role: Roles }[] = [
       { model: this.adminModel, role: Roles.Admin },
@@ -37,7 +38,7 @@ export class AuthService {
           const payload = { username: user.name || user.first_name, sub: user._id, role };
           const token = this.jwtService.sign(payload, {
             secret: this.configService.get<string>('JWT_SECRET'),
-            expiresIn: loginDto.rememberMe ? '30d' : '1h',
+            expiresIn: rememberMe ? '30d' : '1h',
           });
           console.log(`Generated token: ${token}`);
           return { token, role, userId: user._id.toString() };
