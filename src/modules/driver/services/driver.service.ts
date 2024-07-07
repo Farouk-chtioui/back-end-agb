@@ -33,7 +33,12 @@ export class DriverService implements DriverServiceInterface {
     return this.driverModel.findById(id).exec();
   }
 
-  async update(id: string, driver: Driver): Promise<Driver> {
+  async update(id: string, driver: Partial<Driver>): Promise<Driver> {
+    if (driver.password) {
+      const hashedPassword = await bcrypt.hash(driver.password, 10);
+      driver.password = hashedPassword;
+    }
+
     const existingDriver = await this.driverModel.findOne({ email: driver.email }).exec();
 
     if (existingDriver && existingDriver.id !== id) {
