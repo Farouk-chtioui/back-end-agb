@@ -52,4 +52,20 @@ export class AuthService {
       expiresIn: '1h',
     });
   }
+
+  async refreshToken(oldToken: string): Promise<{ token: string }> {
+    try {
+      const payload = this.jwtService.verify(oldToken, {
+        secret: this.configService.get<string>('JWT_SECRET'),
+      });
+      const newToken = this.createToken({
+        username: payload.username,
+        sub: payload.sub,
+        role: payload.role,
+      });
+      return { token: newToken };
+    } catch (error) {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
+  }
 }
