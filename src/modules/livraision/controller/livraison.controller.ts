@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, Put, Query } from '@nestjs/common';
 import { LivraisonService } from '../services/livraision.service';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
 import { UpdateLivraisonStatusDto } from '../dto/update-livraison-status.dto'; // Import the new DTO
@@ -15,9 +15,11 @@ export class LivraisonController {
     }
 
     @Get()
-    async findAll(): Promise<Livraison[]> {
-        return this.livraisonService.findAll();
-    }
+   async findAll(@Query('page') page: number): Promise<Livraison[]> {
+        return this.livraisonService.findAll(page);
+    }"scripts": {
+  "start:dev": "nodemon"
+}
 
     @Get(':NumeroCommande')
     async findByCommande(@Param('NumeroCommande') NumeroCommande: string): Promise<Livraison[]> {

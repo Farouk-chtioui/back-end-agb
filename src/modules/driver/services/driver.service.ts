@@ -24,7 +24,7 @@ export class DriverService implements DriverServiceInterface {
     return newDriver.save();
   }
 
-  async findAll(page: number = 1, limit: number = 6): Promise<Driver[]> {
+  async findAll(page: number = 1, limit: number = 10): Promise<Driver[]> {
     const skip = (page - 1) * limit;
     return this.driverModel.find().skip(skip).limit(limit).exec();
   }
