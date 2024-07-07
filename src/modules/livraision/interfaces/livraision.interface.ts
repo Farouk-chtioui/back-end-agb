@@ -8,4 +8,5 @@ export interface LivraisonServiceInterface {
     updateStatus(id: string, status: string): Promise<Livraison>;
     deleteCommande(id: string): Promise<Livraison>;
     updateCommande(id: string, livraison: CreateLivraisonDto): Promise<Livraison>;
+    searchLivraison(search: string): Promise<Livraison[]>;
 }

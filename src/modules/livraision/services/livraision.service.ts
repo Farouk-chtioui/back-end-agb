@@ -20,7 +20,7 @@ export class LivraisonService implements LivraisonServiceInterface {
     async findAll(): Promise<Livraison[]> {
         return this.livraisonModel
             .find()
-            .populate('client', '-password') // Assuming you have a 'client' reference in Livraison schema
+            .populate('client', '-password')
             .populate({
                 path: 'products.productId',
                 model: 'Product',
@@ -67,4 +67,22 @@ export class LivraisonService implements LivraisonServiceInterface {
     async updateCommande(id: string, createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         return this.livraisonModel.findByIdAndUpdate(id, createLivraisonDto, { new: true }).exec();
     }
+    async searchLivraison(searchTerm: string): Promise<Livraison[]> {
+        const regex = new RegExp(searchTerm, 'i');
+        return this.livraisonModel.find({
+            $or: [
+                { NumeroCommande: { $regex: regex } },
+                { status: { $regex: regex } },
+            ],
+        })
+        .populate('client', '-password')
+        .populate({
+            path: 'products.productId',
+            model: 'Product',
+        })
+        .populate('market')
+        .populate('driver')
+        .exec();
+    }
+    
 }

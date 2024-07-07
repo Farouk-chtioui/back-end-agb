@@ -44,4 +44,8 @@ export class LivraisonController {
     async update(@Param('id') id: string, @Body() updateLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         return this.livraisonService.updateCommande(id, updateLivraisonDto);
     }
+    @Get('search/:search')
+    async searchLivraison(@Param('search') search: string): Promise<Livraison[]> {
+        return this.livraisonService.searchLivraison(search);
+    }
 }
