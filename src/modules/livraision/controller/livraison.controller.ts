@@ -15,11 +15,9 @@ export class LivraisonController {
     }
 
     @Get()
-   async findAll(@Query('page') page: number): Promise<Livraison[]> {
+    async findAll(@Query('page') page: number): Promise<Livraison[]> {
         return this.livraisonService.findAll(page);
-    }"scripts": {
-  "start:dev": "nodemon"
-}
+    }
 
     @Get(':NumeroCommande')
     async findByCommande(@Param('NumeroCommande') NumeroCommande: string): Promise<Livraison[]> {
@@ -42,10 +40,11 @@ export class LivraisonController {
         return this.livraisonService.findById(id);
     }
 
-    @Put(':id')
+    @Patch(':id')
     async update(@Param('id') id: string, @Body() updateLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
-        return this.livraisonService.updateCommande(id, updateLivraisonDto);
-    }
+        return this.livraisonService.update(id, updateLivraisonDto);
+    }   
+
     @Get('search/:search')
     async searchLivraison(@Param('search') search: string): Promise<Livraison[]> {
         return this.livraisonService.searchLivraison(search);

@@ -1,4 +1,4 @@
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Livraison } from '../schema/livraision.schema';
@@ -29,7 +29,6 @@ export class LivraisonService implements LivraisonServiceInterface {
             .populate('driver')
             .exec();
     }
-    
 
     async findById(id: string): Promise<Livraison> {
         return this.livraisonModel
@@ -65,9 +64,10 @@ export class LivraisonService implements LivraisonServiceInterface {
         return this.livraisonModel.findByIdAndDelete(id).exec();
     }
 
-    async updateCommande(id: string, createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
+    async update(id: string, createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         return this.livraisonModel.findByIdAndUpdate(id, createLivraisonDto, { new: true }).exec();
     }
+
     async searchLivraison(searchTerm: string): Promise<Livraison[]> {
         const regex = new RegExp(searchTerm, 'i');
         return this.livraisonModel.find({
@@ -85,5 +85,4 @@ export class LivraisonService implements LivraisonServiceInterface {
         .populate('driver')
         .exec();
     }
-    
 }
