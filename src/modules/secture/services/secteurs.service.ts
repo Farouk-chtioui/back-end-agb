@@ -14,7 +14,7 @@ export class SecteurService implements SecteurServiceInterface {
     return createdSecteur.save();
   }
 
-   async findAll(page: number=1, limit: number=6): Promise<Secteur[]> {
+   async findAll(page: number=1, limit: number=10): Promise<Secteur[]> {
     const skip = (page - 1) * limit;
     return this.secteurModel.find().skip(skip).limit(limit).exec();
   }
