@@ -32,4 +32,8 @@ export class CreateMarketDto {
   @IsNotEmpty()
   @IsNumber()
   numberMi: number;
+
+  @IsString()  
+  @IsNotEmpty()  
+  codePostal: string; 
 }

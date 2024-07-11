@@ -3,13 +3,17 @@ import { IsOptional, IsString } from 'class-validator';
 export class UpdateMarketDto {
   @IsString()
   @IsOptional()
-   email?: string;
+  email?: string;
 
   @IsString()
   @IsOptional()
-   address?: string;
+  address?: string;
 
   @IsString()
   @IsOptional()
-   password?: string;
+  password?: string;
+
+  @IsString() 
+  @IsOptional()  
+  codePostal?: string;  
 }
