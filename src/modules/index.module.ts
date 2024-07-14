@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './shared/guard/jwt-auth.guard';
 import { RolesGuard } from './shared/guard/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { DemandeLivraisonModule } from './demande-livraison/demande-livraison.mdoule';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { APP_GUARD } from '@nestjs/core';
     LivraisonModule,
     PlansModule,
     AuthModule,
+    DemandeLivraisonModule,
   ],
   controllers: [],
   providers: [
