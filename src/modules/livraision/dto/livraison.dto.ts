@@ -65,7 +65,7 @@ export class CreateLivraisonDto {
 
     @IsMongoId()
     @IsNotEmpty()
-    driver: string;
+    driver?: string;
 
     @IsEnum(Status)
     @IsOptional()

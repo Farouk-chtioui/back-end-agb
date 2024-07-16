@@ -32,7 +32,7 @@ export class Livraison extends Document {
         type: [{
             productId: { type: MongooseSchema.Types.ObjectId, ref: 'Product' },
             quantity: Number,
-            Dépôt: Boolean,
+            w: Boolean,
             Montage: Boolean,
             Install: Boolean
         }]
@@ -49,7 +49,7 @@ export class Livraison extends Document {
     market: Market;
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Driver' })
-    driver: Driver;
+    driver?: Driver;
 
     @Prop({ type: String, enum: Object.values(Status), default: Status.EN_ATTENTE })
     status: Status;

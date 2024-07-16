@@ -16,8 +16,17 @@ export class DemandeLivraisonService {
         return createdDemandeLivraison.save();
     }
 
-    async findAll(): Promise<DemandeLivraison[]> {
-        return this.demandeLivraisonModel.find().exec();
+    async findAll(page: number = 1): Promise<DemandeLivraison[]> {
+        const perPage = 10;
+        return this.demandeLivraisonModel
+            .find()
+            .skip((page - 1) * perPage)
+            .limit(perPage)
+            .populate('client', '-password')
+            .populate({ path: 'products.productId', model: 'Product' })
+            .populate('market')
+            .populate('driver')
+            .exec();
     }
 
     async findOne(id: string): Promise<DemandeLivraison> {
