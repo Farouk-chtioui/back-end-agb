@@ -1,9 +1,10 @@
 import { Controller, Get, Post, Body, Param, Delete, Patch, Put, Query } from '@nestjs/common';
 import { LivraisonService } from '../services/livraision.service';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
-import { UpdateLivraisonStatusDto } from '../dto/update-livraison-status.dto'; // Import the new DTO
+import { UpdateDriverDto } from '../dto/addDriver.dto'; // Import the new DTO
 import { Livraison } from '../schema/livraision.schema';
 import { Status } from '../../../enums/status.enum';
+import { UpdateLivraisonStatusDto } from '../dto/update-livraison-status.dto';
 
 @Controller('livraison')
 export class LivraisonController {
@@ -28,6 +29,11 @@ export class LivraisonController {
     async updateStatus(@Param('id') id: string, @Body() updateLivraisonStatusDto: UpdateLivraisonStatusDto): Promise<Livraison> {
         const { status } = updateLivraisonStatusDto;
         return this.livraisonService.updateStatus(id, status);
+    }
+
+    @Patch(':id/driver')
+    async updateDriver(@Param('id') id: string, @Body() updateDriverDto: UpdateDriverDto): Promise<Livraison> {
+        return this.livraisonService.updateDriver(id, updateDriverDto);
     }
 
     @Delete(':id')

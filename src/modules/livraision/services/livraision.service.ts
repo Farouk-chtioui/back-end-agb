@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Livraison } from '../schema/livraision.schema';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
+import { UpdateDriverDto } from '../dto/addDriver.dto'; // Import the new DTO
 import { LivraisonServiceInterface } from '../interfaces/livraision.interface';
 import { Status } from '../../../enums/status.enum';
 
@@ -66,6 +67,11 @@ export class LivraisonService implements LivraisonServiceInterface {
 
     async update(id: string, createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         return this.livraisonModel.findByIdAndUpdate(id, createLivraisonDto, { new: true }).exec();
+    }
+
+    async updateDriver(id: string, updateDriverDto: UpdateDriverDto): Promise<Livraison> {
+        const driverId = updateDriverDto.driver.toString(); // Ensure driver ID is a string
+        return this.livraisonModel.findByIdAndUpdate(id, { driver: driverId }, { new: true }).exec();
     }
 
     async searchLivraison(searchTerm: string): Promise<Livraison[]> {

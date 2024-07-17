@@ -26,7 +26,7 @@ export class ProductDto {
 
 export class CreateLivraisonDto {
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     NumeroCommande: string;
 
     @IsString()
@@ -64,7 +64,7 @@ export class CreateLivraisonDto {
     market: string;
 
     @IsMongoId()
-    @IsNotEmpty()
+    @IsOptional()
     driver?: string;
 
     @IsEnum(Status)

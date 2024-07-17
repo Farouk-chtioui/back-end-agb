@@ -1,5 +1,6 @@
 import { Livraison } from "../schema/livraision.schema";
 import { CreateLivraisonDto } from "../dto/livraison.dto";
+import { UpdateDriverDto } from "../dto/addDriver.dto";
 export interface LivraisonServiceInterface {
     createLivraison(livraison: CreateLivraisonDto): Promise<Livraison>;
     findAll(): Promise<Livraison[]>;
@@ -9,4 +10,5 @@ export interface LivraisonServiceInterface {
     deleteCommande(id: string): Promise<Livraison>;
     update(id: string, livraison: CreateLivraisonDto): Promise<Livraison>;
     searchLivraison(search: string): Promise<Livraison[]>;
+    updateDriver(id:string,updateDriverDto:UpdateDriverDto):Promise<Livraison>;
 }

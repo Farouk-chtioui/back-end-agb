@@ -7,7 +7,7 @@ import { Status } from '../../../enums/status.enum';
 
 @Schema()
 export class Livraison extends Document {
-    @Prop({ required: true, unique: true })
+    @Prop({ unique: true })
     NumeroCommande: string;
 
     @Prop()
@@ -32,7 +32,7 @@ export class Livraison extends Document {
         type: [{
             productId: { type: MongooseSchema.Types.ObjectId, ref: 'Product' },
             quantity: Number,
-            w: Boolean,
+            Dépôt: Boolean,
             Montage: Boolean,
             Install: Boolean
         }]
@@ -53,6 +53,8 @@ export class Livraison extends Document {
 
     @Prop({ type: String, enum: Object.values(Status), default: Status.EN_ATTENTE })
     status: Status;
+    @Prop()
+    price: number;
 }
 
 export const LivraisonSchema = SchemaFactory.createForClass(Livraison);
