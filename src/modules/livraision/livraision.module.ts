@@ -7,7 +7,7 @@ import { Client, ClientSchema } from '../client/schema/client.schema';
 import { Product, ProductSchema } from '../product/schema/product.schema';
 import { Market, MarketSchema } from '../market/schema/market.schema';
 import { Driver, DriverSchema } from '../driver/schema/driver.schema';
-
+import { LivraisonGateway } from './livraison.gateway';
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -19,6 +19,6 @@ import { Driver, DriverSchema } from '../driver/schema/driver.schema';
     ]),
   ],
   controllers: [LivraisonController],
-  providers: [LivraisonService],
+  providers: [LivraisonService,LivraisonGateway],
 })
 export class LivraisonModule {}
