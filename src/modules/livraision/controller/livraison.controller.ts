@@ -55,4 +55,9 @@ export class LivraisonController {
     async searchLivraison(@Param('search') search: string): Promise<Livraison[]> {
         return this.livraisonService.searchLivraison(search);
     }
+    @Get('pending/count')
+    async getPendingDeliveriesCount(): Promise<{ count: number }> {
+        const count = await this.livraisonService.countPendingDeliveries();
+        return { count };
+    }
 }

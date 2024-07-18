@@ -91,4 +91,7 @@ export class LivraisonService implements LivraisonServiceInterface {
         .populate('driver')
         .exec();
     }
+    async countPendingDeliveries(): Promise<number> {
+        return this.livraisonModel.countDocuments({ status: 'En attente' }).exec();
+    }
 }

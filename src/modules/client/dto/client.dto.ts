@@ -17,4 +17,10 @@ export class ClientDto{
     @IsString()
     
     phone: string;
+    @IsOptional()
+    @IsString()
+    code_postal: string;
+    @IsOptional()
+    @IsString()
+    code_postal2: string;
 }

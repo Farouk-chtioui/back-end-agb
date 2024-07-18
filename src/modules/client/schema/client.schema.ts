@@ -13,6 +13,10 @@ export class Client {
     address2: string;
     @Prop({ required: true })
     phone: string;
+    @Prop()
+    code_postal: string;
+    @Prop()
+    code_postal2: string;
 }
 const ClientSchema = SchemaFactory.createForClass(Client);
 export { ClientSchema };
