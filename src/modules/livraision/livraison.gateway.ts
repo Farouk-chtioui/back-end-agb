@@ -19,7 +19,7 @@ export class LivraisonGateway implements OnGatewayInit {
     console.log('WebSocket server initialized');
   }
 
- @SubscribeMessage('statusChange')
+  @SubscribeMessage('statusChange')
   handleStatusChange(@MessageBody() data: { id: string, status: string }) {
     console.log('Received statusChange event with data:', data);
     if (data && data.id) {
@@ -28,6 +28,18 @@ export class LivraisonGateway implements OnGatewayInit {
       console.error('Invalid data received for statusChange event');
     }
   }
+
+  @SubscribeMessage('addLivraison')
+  async handleAddLivraison(@MessageBody() data: { id: string }) {
+    console.log('Received addLivraison event with data:', data);
+    if (data && data.id) {
+      this.server.emit('addLivraison', data); // Broadcast the event with data
+      await this.emitPendingCount(); // Emit the updated pending count
+    } else {
+      console.error('Invalid data received for addLivraison event');
+    }
+  }
+
   async emitPendingCount() {
     const count = await this.livraisonService.countPendingDeliveries();
     this.server.emit('updatePendingCount', { count });
