@@ -13,13 +13,10 @@ export class ClientController {
         return this.clientService.createClient(client);
     }
     @Get()
-    async findAll(@Query('page') page: number) {
-      return this.clientService.findAll(page);
+    async findAll(@Query('page') page: number = 1) {
+        return this.clientService.findAll(page);
     }
-    @Get(':id')
-    async findOne(@Param('id') id: string) {
-        return this.clientService.findOne(id);
-    }   
+  
     @Patch(':id')
     async update(@Param('id') id: string, @Body() client: Client) {
         return this.clientService.update(id, client);
@@ -32,5 +29,12 @@ export class ClientController {
     async searchClient(@Param('name') name: string) {
         return this.clientService.searchClient(name);
     }
-  
+    @Get('all')
+    async getAllClients() {
+        return this.clientService.getAllClients();
+    }
+    @Get(':id')
+    async findById(@Param('id') id: string): Promise<Client> {
+        return this.clientService.findById(id);
+    }
 }

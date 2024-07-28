@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Patch, Put, Query } from '@nestjs/common';
 import { LivraisonService } from '../services/livraision.service';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
-import { UpdateDriverDto } from '../dto/addDriver.dto'; // Import the new DTO
+import { UpdateDriverDto } from '../dto/addDriver.dto';
 import { Livraison } from '../schema/livraision.schema';
 import { Status } from '../../../enums/status.enum';
 import { UpdateLivraisonStatusDto } from '../dto/update-livraison-status.dto';
@@ -16,7 +16,7 @@ export class LivraisonController {
     }
 
     @Get()
-    async findAll(@Query('page') page: number): Promise<Livraison[]> {
+    async findAll(@Query('page') page: number = 1): Promise<{ livraisons: Livraison[], total: number, totalPages: number }> {
         return this.livraisonService.findAll(page);
     }
 
@@ -49,12 +49,13 @@ export class LivraisonController {
     @Patch(':id')
     async update(@Param('id') id: string, @Body() updateLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         return this.livraisonService.update(id, updateLivraisonDto);
-    }   
+    }
 
     @Get('search/:search')
     async searchLivraison(@Param('search') search: string): Promise<Livraison[]> {
         return this.livraisonService.searchLivraison(search);
     }
+
     @Get('pending/count')
     async getPendingDeliveriesCount(): Promise<{ count: number }> {
         const count = await this.livraisonService.countPendingDeliveries();

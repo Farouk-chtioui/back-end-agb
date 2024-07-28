@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Livraison } from '../schema/livraision.schema';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
-import { UpdateDriverDto } from '../dto/addDriver.dto'; // Import the new DTO
+import { UpdateDriverDto } from '../dto/addDriver.dto';
 import { LivraisonServiceInterface } from '../interfaces/livraision.interface';
 import { Status } from '../../../enums/status.enum';
 
@@ -18,9 +18,9 @@ export class LivraisonService implements LivraisonServiceInterface {
         return createdLivraison.save();
     }
 
-    async findAll(page: number = 1): Promise<Livraison[]> {
+    async findAll(page: number = 1): Promise<{ livraisons: Livraison[], total: number, totalPages: number }> {
         const perPage = 10;
-        return this.livraisonModel
+        const livraisons = await this.livraisonModel
             .find()
             .skip((page - 1) * perPage)
             .limit(perPage)
@@ -29,7 +29,13 @@ export class LivraisonService implements LivraisonServiceInterface {
             .populate('market')
             .populate('driver')
             .exec();
+
+        const total = await this.livraisonModel.countDocuments().exec();
+        const totalPages = Math.ceil(total / perPage);
+
+        return { livraisons, total, totalPages };
     }
+
 
     async findById(id: string): Promise<Livraison> {
         return this.livraisonModel
@@ -91,6 +97,7 @@ export class LivraisonService implements LivraisonServiceInterface {
         .populate('driver')
         .exec();
     }
+
     async countPendingDeliveries(): Promise<number> {
         return this.livraisonModel.countDocuments({ status: 'En attente' }).exec();
     }
