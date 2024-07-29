@@ -61,4 +61,8 @@ export class LivraisonController {
         const count = await this.livraisonService.countPendingDeliveries();
         return { count };
     }
+    @Get('all')
+    async getAllOrder():Promise<Livraison[]>{
+        return this.livraisonService.getAllOrder();
+    }
 }

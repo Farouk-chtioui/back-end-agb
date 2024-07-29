@@ -35,7 +35,9 @@ export class LivraisonService implements LivraisonServiceInterface {
 
         return { livraisons, total, totalPages };
     }
-
+    async getAllOrder():Promise<Livraison[]>{
+        return this.livraisonModel.find().exec();
+    }
 
     async findById(id: string): Promise<Livraison> {
         return this.livraisonModel
