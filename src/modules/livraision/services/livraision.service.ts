@@ -6,6 +6,7 @@ import { CreateLivraisonDto } from '../dto/livraison.dto';
 import { UpdateDriverDto } from '../dto/addDriver.dto';
 import { LivraisonServiceInterface } from '../interfaces/livraision.interface';
 import { Status } from '../../../enums/status.enum';
+import * as QRCode from 'qrcode';
 
 @Injectable()
 export class LivraisonService implements LivraisonServiceInterface {
@@ -15,6 +16,8 @@ export class LivraisonService implements LivraisonServiceInterface {
 
     async createLivraison(createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         const createdLivraison = new this.livraisonModel(createLivraisonDto);
+        const qrCodeData = await QRCode.toDataURL(createdLivraison._id.toString());
+        createdLivraison.QRCode = qrCodeData;
         return createdLivraison.save();
     }
 
@@ -68,6 +71,7 @@ export class LivraisonService implements LivraisonServiceInterface {
     async updateStatus(id: string, status: Status): Promise<Livraison> {
         return this.livraisonModel.findByIdAndUpdate(id, { status }, { new: true }).exec();
     }
+    
 
     async deleteCommande(id: string): Promise<Livraison> {
         return this.livraisonModel.findByIdAndDelete(id).exec();

@@ -55,6 +55,8 @@ export class Livraison extends Document {
     status: Status;
     @Prop()
     price: number;
+    @Prop()
+    QRCode: string;
 }
 
 export const LivraisonSchema = SchemaFactory.createForClass(Livraison);

@@ -65,4 +65,8 @@ export class LivraisonController {
     async getAllOrder():Promise<Livraison[]>{
         return this.livraisonService.getAllOrder();
     }
+    @Patch('scan-qr/:id')
+    async scanQRCode(@Param('id') id: string): Promise<Livraison> {
+        return this.livraisonService.updateStatus(id, Status.LIVRE);
+    }
 }
