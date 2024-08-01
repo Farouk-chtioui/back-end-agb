@@ -53,10 +53,15 @@ export class Livraison extends Document {
 
     @Prop({ type: String, enum: Object.values(Status), default: Status.EN_ATTENTE })
     status: Status;
+
     @Prop()
     price: number;
+
     @Prop()
     QRCode: string;
+
+    @Prop({ unique: true }) // Ensure this is unique
+    shortId: string;
 }
 
 export const LivraisonSchema = SchemaFactory.createForClass(Livraison);
