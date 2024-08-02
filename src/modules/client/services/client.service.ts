@@ -5,7 +5,6 @@ import { ClientDto } from "../dto/client.dto";
 import { Client } from "../schema/client.schema";
 import { ClientServiceInterface } from "../interfaces/client.interface";
 
-
 @Injectable()
 export class ClientService implements ClientServiceInterface {
     constructor(
@@ -16,9 +15,9 @@ export class ClientService implements ClientServiceInterface {
         const createdClient = new this.clientModel(client);
         return createdClient.save();
     }
+
     async findAll(page: number = 1): Promise<{ clients: Client[], total: number, totalPages: number }> {
         const perPage = 10;  
-
         const clients = await this.clientModel
             .find()
             .skip((page - 1) * perPage)
@@ -26,20 +25,19 @@ export class ClientService implements ClientServiceInterface {
             .exec();
 
         const total = await this.clientModel.countDocuments().exec();
-
         const totalPages = Math.ceil(total / perPage);
 
         return { clients, total, totalPages };
     }
-    
-  
-    async update(id: string, client: Client): Promise<Client> {
-        return this.clientModel.findByIdAndUpdate
-        (id, client, { new: true }).exec();
+
+    async update(id: string, client: Partial<Client>): Promise<Client> {
+        return this.clientModel.findByIdAndUpdate(id, { $set: client }, { new: true }).exec();
     }
+
     async delete(id: string): Promise<Client> {
         return this.clientModel.findByIdAndDelete(id).exec();
     }
+
     async searchClient(searchTerm: string): Promise<Client[]> {
         const regex = new RegExp(searchTerm, 'i');
         return this.clientModel.find({
@@ -49,10 +47,12 @@ export class ClientService implements ClientServiceInterface {
             ]
         }).exec();
     }
+
     async getAllClients(): Promise<Client[]> {
-        return this.clientModel.find().exec()
-        }
-        async findById(id: string): Promise<Client> {
-            return this.clientModel.findById(id).exec(); // Find client by ID
-        }
+        return this.clientModel.find().exec();
+    }
+
+    async findById(id: string): Promise<Client> {
+        return this.clientModel.findById(id).exec(); 
+    }
 }

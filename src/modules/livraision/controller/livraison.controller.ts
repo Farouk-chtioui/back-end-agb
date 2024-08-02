@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, Put, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, Query } from '@nestjs/common';
 import { LivraisonService } from '../services/livraision.service';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
 import { UpdateDriverDto } from '../dto/addDriver.dto';
@@ -61,10 +61,12 @@ export class LivraisonController {
         const count = await this.livraisonService.countPendingDeliveries();
         return { count };
     }
+
     @Get('all')
-    async getAllOrder():Promise<Livraison[]>{
+    async getAllOrder(): Promise<Livraison[]> {
         return this.livraisonService.getAllOrder();
     }
+
     @Patch('scan-qr/:id')
     async scanQRCode(@Param('id') id: string): Promise<Livraison> {
         return this.livraisonService.updateStatus(id, Status.LIVRE);

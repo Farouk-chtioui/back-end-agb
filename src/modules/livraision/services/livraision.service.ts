@@ -18,10 +18,12 @@ export class LivraisonService implements LivraisonServiceInterface {
     async createLivraison(createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         const createdLivraison = new this.livraisonModel(createLivraisonDto);
     
+        // Generate a short unique identifier
         const shortId = shortid.generate();
         createdLivraison.shortId = shortId;
     
-        const qrCodeData = await QRCode.toDataURL(shortId);
+        // Generate QR code data URL using the shortId
+        const qrCodeData = await QRCode.toDataURL(`OrderID: ${shortId}`);
         createdLivraison.QRCode = qrCodeData;
     
         return createdLivraison.save();
