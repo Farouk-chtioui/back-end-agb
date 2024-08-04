@@ -23,8 +23,7 @@ export class Client {
     @Prop()
     code_postal2: string;
 
-    @Prop({ type: String, required: false })
-    signature?: string;
+    
 }
 
 const ClientSchema = SchemaFactory.createForClass(Client);
