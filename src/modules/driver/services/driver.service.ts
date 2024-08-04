@@ -24,9 +24,18 @@ export class DriverService implements DriverServiceInterface {
     return newDriver.save();
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<Driver[]> {
-    const skip = (page - 1) * limit;
-    return this.driverModel.find().skip(skip).limit(limit).exec();
+  async findAll(page: number = 1): Promise<{ drivers: Driver[], total: number, totalPages: number }> {
+    const perPage = 10;
+    const drivers = await this.driverModel
+      .find()
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .exec();
+
+    const total = await this.driverModel.countDocuments().exec();
+    const totalPages = Math.ceil(total / perPage);
+
+    return { drivers, total, totalPages };
   }
 
   async findOne(id: string): Promise<Driver> {
@@ -39,10 +48,11 @@ export class DriverService implements DriverServiceInterface {
       driver.password = hashedPassword;
     }
 
-    const existingDriver = await this.driverModel.findOne({ email: driver.email }).exec();
-
-    if (existingDriver && existingDriver.id !== id) {
-      throw new Error('A driver with this email already exists');
+    if (driver.email) {
+      const existingDriver = await this.driverModel.findOne({ email: driver.email }).exec();
+      if (existingDriver && existingDriver._id.toString() !== id) {
+        throw new Error('A driver with this email already exists');
+      }
     }
 
     return this.driverModel.findByIdAndUpdate(id, driver, { new: true }).exec();
