@@ -71,4 +71,9 @@ export class LivraisonController {
     async scanQRCode(@Param('id') id: string): Promise<Livraison> {
         return this.livraisonService.updateStatus(id, Status.LIVRE);
     }
+    
+    @Get('latest/:driverId')
+    async getLatestDeliveryForDriver(@Param('driverId') driverId: string): Promise<Livraison | null> {
+        return this.livraisonService.findLatestDeliveryForDriver(driverId);
+    }
 }

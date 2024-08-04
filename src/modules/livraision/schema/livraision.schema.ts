@@ -5,7 +5,7 @@ import { Market } from '../../market/schema/market.schema';
 import { Driver } from '../../driver/schema/driver.schema';
 import { Status } from '../../../enums/status.enum';
 
-@Schema()
+@Schema({ timestamps: true }) // Enable timestamps to auto-manage createdAt and updatedAt
 export class Livraison extends Document {
     @Prop({ unique: true })
     NumeroCommande: string;
@@ -60,8 +60,11 @@ export class Livraison extends Document {
     @Prop()
     QRCode: string;
 
-    @Prop({ unique: true }) // Ensure this is unique
+    @Prop({ unique: true })
     shortId: string;
+
+    @Prop({ default: Date.now }) 
+    createdAt: Date;
 }
 
 export const LivraisonSchema = SchemaFactory.createForClass(Livraison);

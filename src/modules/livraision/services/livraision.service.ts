@@ -18,11 +18,9 @@ export class LivraisonService implements LivraisonServiceInterface {
     async createLivraison(createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         const createdLivraison = new this.livraisonModel(createLivraisonDto);
     
-        // Generate a short unique identifier
         const shortId = shortid.generate();
         createdLivraison.shortId = shortId;
     
-        // Generate QR code data URL using the shortId
         const qrCodeData = await QRCode.toDataURL(`OrderID: ${shortId}`);
         createdLivraison.QRCode = qrCodeData;
     
@@ -114,5 +112,16 @@ export class LivraisonService implements LivraisonServiceInterface {
 
     async countPendingDeliveries(): Promise<number> {
         return this.livraisonModel.countDocuments({ status: 'En attente' }).exec();
+    }
+
+    async findLatestDeliveryForDriver(driverId: string): Promise<Livraison | null> {
+        return this.livraisonModel
+            .findOne({ driver: driverId })
+            .sort({ createdAt: -1 }) // Sort by createdAt in descending order
+            .populate('client', '-password')
+            .populate({ path: 'products.productId', model: 'Product' })
+            .populate('market')
+            .populate('driver')
+            .exec();
     }
 }
