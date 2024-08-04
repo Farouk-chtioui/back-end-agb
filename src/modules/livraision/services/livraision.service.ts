@@ -124,4 +124,8 @@ export class LivraisonService implements LivraisonServiceInterface {
             .populate('driver')
             .exec();
     }
+
+    async findByShortId(shortId: string): Promise<Livraison | null> {
+        return this.livraisonModel.findOne({ shortId }).exec();
+    }
 }

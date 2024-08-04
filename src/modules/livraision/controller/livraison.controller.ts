@@ -76,4 +76,9 @@ export class LivraisonController {
     async getLatestDeliveryForDriver(@Param('driverId') driverId: string): Promise<Livraison | null> {
         return this.livraisonService.findLatestDeliveryForDriver(driverId);
     }
+
+    @Get('shortId/:shortId')
+    async findByShortId(@Param('shortId') shortId: string): Promise<Livraison> {
+        return this.livraisonService.findByShortId(shortId);
+    }
 }
