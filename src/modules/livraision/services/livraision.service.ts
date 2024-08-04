@@ -117,7 +117,7 @@ export class LivraisonService implements LivraisonServiceInterface {
     async findLatestDeliveryForDriver(driverId: string): Promise<Livraison | null> {
         return this.livraisonModel
             .findOne({ driver: driverId })
-            .sort({ createdAt: -1 }) // Sort by createdAt in descending order
+            .sort({ createdAt: -1 })
             .populate('client', '-password')
             .populate({ path: 'products.productId', model: 'Product' })
             .populate('market')

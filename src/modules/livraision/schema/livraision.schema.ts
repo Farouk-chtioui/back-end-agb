@@ -57,7 +57,7 @@ export class Livraison extends Document {
     @Prop()
     price: number;
 
-    @Prop()
+    @Prop({ unique: true }) 
     QRCode: string;
 
     @Prop({ unique: true })
