@@ -6,10 +6,11 @@ import { Market } from '../schema/market.schema';
 import { CreateMarketDto } from '../dto/market.dto';
 import { UpdateMarketDto } from '../dto/updateMarket.dto';
 import { AuthService } from '../../auth/services/auth.service';
+import { MarketServiceInterface } from '../interfaces/market.interface';
 import { LoginDto } from '../../auth/dto/login.dto';
 
 @Injectable()
-export class MarketService {
+export class MarketService implements MarketServiceInterface {
   constructor(
     @InjectModel(Market.name) private marketModel: Model<Market>,
     private readonly authService: AuthService,
@@ -21,9 +22,18 @@ export class MarketService {
     return newMarket.save();
   }
 
-  async getsMarkets(page: number = 1, limit: number = 6): Promise<Market[]> {
-    const skip = (page - 1) * limit;
-    return this.marketModel.find().skip(skip).limit(limit).exec();
+  async getsMarkets(page: number = 1): Promise<{markets:Market[], total:number, totalPages:number}> {
+    const perPage = 10;
+    const markets = await this.marketModel
+      .find()
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .exec();
+
+    const total = await this.marketModel.countDocuments().exec();
+    const totalPages = Math.ceil(total / perPage);
+
+    return { markets, total, totalPages };
   }
 
   getUserById(id: number) {
