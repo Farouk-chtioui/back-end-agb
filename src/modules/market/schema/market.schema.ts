@@ -1,7 +1,8 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
 
 @Schema()
-export class Market {
+export class Market extends Document {
   @Prop({ required: true })
   first_name: string;
 
@@ -31,6 +32,12 @@ export class Market {
 
   @Prop({ required: true })
   numberMi: number;
+
+  @Prop({ required: true })
+  numberMaInitial: number;
+
+  @Prop({ required: true })
+  numberMiInitial: number;
 
   @Prop({ required: true })  
   codePostal: string; 

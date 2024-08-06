@@ -1,4 +1,3 @@
-// plans.schema.ts
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Market } from '../../market/schema/market.schema';
@@ -10,7 +9,7 @@ export class Plan extends Document {
   Date: string;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Market' })
-  market: Market| null;
+  market: Market | null;
 
   @Prop([{ type: MongooseSchema.Types.ObjectId, ref: 'Secteur' }])
   secteurMatinal: (Secteur | null)[];
@@ -19,10 +18,16 @@ export class Plan extends Document {
   secteurApresMidi: (Secteur | null)[];
 
   @Prop()
+  totalMatin: number;
+
+  @Prop()
   totalMidi: number;
 
   @Prop()
-  totalMatin: number;
+  totalMatinInitial: number;
+
+  @Prop()
+  totalMidiInitial: number;
 
   @Prop()
   notes: string;

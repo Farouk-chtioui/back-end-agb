@@ -36,4 +36,9 @@ export class PlansController {
     updatePlan(@Param('id') id: string, @Body() updatePlanDto: UpdatePlanDto) {
         return this.plansService.updatePlan(id, updatePlanDto);
     }
+
+    @Patch(':id/decrease/:period')
+    decreaseTotals(@Param('id') id: string, @Param('period') period: 'Matin' | 'Midi') {
+        return this.plansService.decreaseTotals(id, period);
+    }
 }

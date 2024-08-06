@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -60,5 +60,36 @@ export class MarketService implements MarketServiceInterface {
 
   async login(loginDto: LoginDto): Promise<{ token: string, role: string }> {
     return this.authService.login(loginDto);
+  }
+
+  async resetTotals(id: string): Promise<Market> {
+    const market = await this.marketModel.findById(id);
+    if (!market) {
+        throw new NotFoundException(`Market with ID ${id} not found`);
+    }
+
+    market.numberMa = market.numberMaInitial;
+    market.numberMi = market.numberMiInitial;
+
+    return market.save();
+  }
+
+  async getAllMarkets(): Promise<Market[]> {
+    return this.marketModel.find().exec();
+  }
+
+  async decreaseTotals(id: string, period: 'Matin' | 'Midi'): Promise<Market> {
+    const market = await this.marketModel.findById(id);
+    if (!market) {
+        throw new NotFoundException(`Market with ID ${id} not found`);
+    }
+
+    if (period === 'Matin') {
+        market.numberMa = Math.max(market.numberMa - 1, 0);
+    } else if (period === 'Midi') {
+        market.numberMi = Math.max(market.numberMi - 1, 0);
+    }
+
+    return market.save();
   }
 }

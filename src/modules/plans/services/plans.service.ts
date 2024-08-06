@@ -55,12 +55,6 @@ export class PlansService implements PlanServiceInterface {
 
     async updatePlan(id: string, updatePlanDto: UpdatePlanDto): Promise<Plan> {
         const transformedPlan = plainToClass(UpdatePlanDto, updatePlanDto);
-
-        // Set market to null if it is explicitly null or undefined
-        if (updatePlanDto.market === undefined || updatePlanDto.market === null) {
-            transformedPlan.market = null;
-        }
-
         const updatedPlan = await this.planModel.findByIdAndUpdate(id, { $set: transformedPlan }, { new: true })
             .populate('market')
             .populate('secteurMatinal')
@@ -72,5 +66,34 @@ export class PlansService implements PlanServiceInterface {
         }
 
         return updatedPlan;
+    }
+
+
+    async resetTotals(id: string): Promise<Plan> {
+        const plan = await this.planModel.findById(id);
+        if (!plan) {
+            throw new NotFoundException(`Plan with ID ${id} not found`);
+        }
+
+        // Assume these values should be restored to some default values, e.g., from the initial state or config
+        plan.totalMatin = plan.totalMatinInitial;
+        plan.totalMidi = plan.totalMidiInitial;
+
+        return plan.save();
+    }
+
+    async decreaseTotals(id: string, period: 'Matin' | 'Midi'): Promise<Plan> {
+        const plan = await this.planModel.findById(id);
+        if (!plan) {
+            throw new NotFoundException(`Plan with ID ${id} not found`);
+        }
+
+        if (period === 'Matin') {
+            plan.totalMatin = Math.max(plan.totalMatin - 1, 0);
+        } else if (period === 'Midi') {
+            plan.totalMidi = Math.max(plan.totalMidi - 1, 0);
+        }
+
+        return plan.save();
     }
 }

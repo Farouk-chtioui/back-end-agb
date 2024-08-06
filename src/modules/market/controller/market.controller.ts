@@ -50,4 +50,9 @@ export class MarketController {
   async login(@Body() loginDto: LoginDto) {
     return this.marketService.login(loginDto);
   }
+
+  @Patch(':id/decrease/:period')
+  decreaseTotals(@Param('id') id: string, @Param('period') period: 'Matin' | 'Midi') {
+    return this.marketService.decreaseTotals(id, period);
+  }
 }

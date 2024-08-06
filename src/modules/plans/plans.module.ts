@@ -16,5 +16,6 @@ import { Secteur, SecteurSchema } from '../secture/schema/secteurs.schema';
   ],
   controllers: [PlansController],
   providers: [PlansService],
+  exports: [PlansService],
 })
 export class PlansModule {}
