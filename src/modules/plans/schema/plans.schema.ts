@@ -17,16 +17,16 @@ export class Plan extends Document {
   @Prop([{ type: MongooseSchema.Types.ObjectId, ref: 'Secteur' }])
   secteurApresMidi: (Secteur | null)[];
 
-  @Prop()
+  @Prop({ required: true })
   totalMatin: number;
 
-  @Prop()
+  @Prop({ required: true })
   totalMidi: number;
 
-  @Prop()
+  @Prop({ required: true })
   totalMatinInitial: number;
 
-  @Prop()
+  @Prop({ required: true })
   totalMidiInitial: number;
 
   @Prop()

@@ -1,5 +1,5 @@
-import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 @Schema()
 export class Market extends Document {
@@ -18,13 +18,7 @@ export class Market extends Document {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ 
-    default: () => {
-      const date = new Date();
-      date.setHours(0, 0, 0, 0);
-      return date;
-    }
-  })
+  @Prop({ default: () => new Date().setHours(0, 0, 0, 0) })
   created_at: Date;
 
   @Prop({ required: true })
@@ -39,8 +33,8 @@ export class Market extends Document {
   @Prop({ required: true })
   numberMiInitial: number;
 
-  @Prop({ required: true })  
-  codePostal: string; 
+  @Prop({ required: true })
+  codePostal: string;
 }
 
 export const MarketSchema = SchemaFactory.createForClass(Market);

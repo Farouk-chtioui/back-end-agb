@@ -16,9 +16,14 @@ export class MarketService implements MarketServiceInterface {
     private readonly authService: AuthService,
   ) {}
 
-  async createMarket(createmarketDto: CreateMarketDto) {
-    const hashedPassword = await bcrypt.hash(createmarketDto.password, 10);
-    const newMarket = new this.marketModel({ ...createmarketDto, password: hashedPassword });
+  async createMarket(createMarketDto: CreateMarketDto) {
+    const hashedPassword = await bcrypt.hash(createMarketDto.password, 10);
+    const newMarket = new this.marketModel({ 
+      ...createMarketDto, 
+      password: hashedPassword,
+      numberMaInitial: createMarketDto.numberMa, // Set initial values
+      numberMiInitial: createMarketDto.numberMi, // Set initial values
+    });
     return newMarket.save();
   }
 
