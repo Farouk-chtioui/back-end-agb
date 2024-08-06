@@ -21,7 +21,6 @@ export class LivraisonGateway implements OnGatewayInit {
 
   @SubscribeMessage('statusChange')
   handleStatusChange(@MessageBody() data: { id: string, status: Status }) {
-    console.log('Received statusChange event with data:', data);
     if (data && data.id) {
       this.server.emit('statusChange', data);
     } else {
@@ -33,15 +32,14 @@ export class LivraisonGateway implements OnGatewayInit {
   async handleAddLivraison(@MessageBody() data: { id: string }) {
     console.log('Received addLivraison event with data:', data);
     if (data && data.id) {
-      this.server.emit('addLivraison', data); // Broadcast the event with data
-      await this.emitPendingCount(); // Emit the updated pending count
+      this.server.emit('addLivraison', data); 
+      await this.emitNotification();
     } else {
       console.error('Invalid data received for addLivraison event');
     }
   }
 
-  async emitPendingCount() {
-    const count = await this.livraisonService.countPendingDeliveries();
-    this.server.emit('updatePendingCount', { count });
+  async emitNotification() {
+    this.server.emit('newLivraisonNotification', { message: 'New livraison added' });
   }
 }
