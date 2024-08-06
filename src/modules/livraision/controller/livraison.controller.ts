@@ -81,4 +81,8 @@ export class LivraisonController {
     async findByShortId(@Param('shortId') shortId: string): Promise<Livraison> {
         return this.livraisonService.findByShortId(shortId);
     }
+    @Get('byStatus/:status')
+    async findByStatus(@Param('status') status: Status): Promise<Livraison[]> {
+        return this.livraisonService.findByStatus(status);
+    }
 }

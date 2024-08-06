@@ -128,4 +128,7 @@ export class LivraisonService implements LivraisonServiceInterface {
     async findByShortId(shortId: string): Promise<Livraison | null> {
         return this.livraisonModel.findOne({ shortId }).exec();
     }
+    async findByStatus(status: Status): Promise<Livraison[]> {
+        return this.livraisonModel.find({ status }).populate('client', '-password').populate({ path: 'products.productId', model: 'Product' }).populate('market').populate('driver').exec();
+    }
 }
