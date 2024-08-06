@@ -20,10 +20,10 @@ export class LivraisonGateway implements OnGatewayInit {
   }
 
   @SubscribeMessage('statusChange')
-  handleStatusChange(@MessageBody() data: { id: string, status: string }) {
+  handleStatusChange(@MessageBody() data: { id: string, status: Status }) {
     console.log('Received statusChange event with data:', data);
     if (data && data.id) {
-      this.server.emit('statusChange', data); // Broadcast the event with data
+      this.server.emit('statusChange', data);
     } else {
       console.error('Invalid data received for statusChange event');
     }
