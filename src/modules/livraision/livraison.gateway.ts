@@ -5,7 +5,7 @@ import { Status } from 'src/enums/status.enum';
 
 @WebSocketGateway({
   cors: {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'http://192.168.1.7'],
     credentials: true,
   },
 })
