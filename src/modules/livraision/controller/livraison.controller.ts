@@ -3,7 +3,7 @@ import { LivraisonService } from '../services/livraision.service';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
 import { UpdateDriverDto } from '../dto/addDriver.dto';
 import { Livraison } from '../schema/livraision.schema';
-import { Status } from '../../../enums/status.enum';
+import { Status } from '../../common/enums/status.enum';
 import { UpdateLivraisonStatusDto } from '../dto/update-livraison-status.dto';
 
 @Controller('livraison')

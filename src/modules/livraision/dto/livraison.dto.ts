@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsMongoId, IsBoolean, IsOptional, IsNumber, ValidateNested, IsArray, IsEnum } from 'class-validator';
 import { Type } from 'class-transformer';
-import { Status } from '../../../enums/status.enum';
+import { Status } from '../../common/enums/status.enum';
 
 export class ProductDto {
     @IsMongoId()

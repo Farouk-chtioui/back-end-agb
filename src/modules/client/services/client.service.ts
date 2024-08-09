@@ -4,7 +4,7 @@ import { Model } from "mongoose";
 import { ClientDto } from "../dto/client.dto";
 import { Client } from "../schema/client.schema";
 import { ClientServiceInterface } from "../interfaces/client.interface";
-import { GeocodingService } from "../../geocoding/geocoding.service";  // Import the GeocodingService
+import { GeocodingService } from "../../geocoding/services/geocoding.service";  // Import the GeocodingService
 
 @Injectable()
 export class ClientService implements ClientServiceInterface {

@@ -8,7 +8,7 @@ import { UpdateMarketDto } from '../dto/updateMarket.dto';
 import { AuthService } from '../../auth/services/auth.service';
 import { MarketServiceInterface } from '../interfaces/market.interface';
 import { LoginDto } from '../../auth/dto/login.dto';
-import { GeocodingService } from '../../geocoding/geocoding.service';  // Import GeocodingService
+import { GeocodingService } from '../../geocoding/services/geocoding.service';  // Import GeocodingService
 
 @Injectable()
 export class MarketService implements MarketServiceInterface {

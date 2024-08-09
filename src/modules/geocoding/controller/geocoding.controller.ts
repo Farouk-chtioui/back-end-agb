@@ -1,5 +1,5 @@
 import { Controller, Get, Query, HttpException, HttpStatus } from '@nestjs/common';
-import { GeocodingService } from './geocoding.service';
+import { GeocodingService } from '../services/geocoding.service';
 
 @Controller('geocode')
 export class GeocodingController {

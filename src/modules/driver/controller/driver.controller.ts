@@ -14,7 +14,7 @@ import {
   import { DriverService } from "../services/driver.service";
   import { Driver } from "../schema/driver.schema";
   import { DriverDto } from "../dto/driver.dto";
-  import { JwtAuthGuard } from "src/modules/shared/guard/jwt-auth.guard";
+  import { JwtAuthGuard } from "src/modules/common/guard/jwt-auth.guard";
   import { LoginDto } from "src/modules/auth/dto/login.dto";
   
   @Controller('driver')

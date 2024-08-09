@@ -3,11 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { AdminService } from '../services/admin.service';
 import { Admin } from '../schema/admin.schema';
 import { AdminDto } from '../dto/admin.dto';
-import { JwtAuthGuard } from '../../shared/guard/jwt-auth.guard';
-import { RolesGuard } from '../../shared/guard/roles.guard';
-import { RolesDecorator } from '../../shared/decorators/roles.decorator';
+import { JwtAuthGuard } from '../../common/guard/jwt-auth.guard';
+import { RolesGuard } from '../../common/guard/roles.guard';
+import { RolesDecorator } from '../../common/decorators/roles.decorator';
 import { LoginDto } from '../../auth/dto/login.dto';
-import { Roles } from '../../../enums/roles.enum';
+import { Roles } from '../../common/enums/roles.enum';
 
 @Controller('admin')
 export class AdminController {

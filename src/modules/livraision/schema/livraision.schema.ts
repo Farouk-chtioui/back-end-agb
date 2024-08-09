@@ -3,7 +3,7 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Client } from '../../client/schema/client.schema';
 import { Market } from '../../market/schema/market.schema';
 import { Driver } from '../../driver/schema/driver.schema';
-import { Status } from '../../../enums/status.enum';
+import { Status } from '../../common/enums/status.enum';
 
 @Schema({ timestamps: true }) // Enable timestamps to auto-manage createdAt and updatedAt
 export class Livraison extends Document {

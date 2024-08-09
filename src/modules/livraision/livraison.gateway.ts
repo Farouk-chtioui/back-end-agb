@@ -1,7 +1,7 @@
 import { WebSocketGateway, WebSocketServer, SubscribeMessage, MessageBody, OnGatewayInit } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { LivraisonService } from './services/livraision.service';
-import { Status } from 'src/enums/status.enum';
+import { Status } from 'src/modules/common/enums/status.enum';
 
 @WebSocketGateway({
   cors: {

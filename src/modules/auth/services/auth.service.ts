@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { Admin } from '../../admin/schema/admin.schema';
 import { Market } from '../../market/schema/market.schema';
 import { Driver } from '../../driver/schema/driver.schema';
-import { Roles } from '../../../enums/roles.enum';
+import { Roles } from '../../common/enums/roles.enum';
 
 @Injectable()
 export class AuthService {

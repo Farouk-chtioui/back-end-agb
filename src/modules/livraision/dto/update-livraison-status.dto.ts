@@ -1,5 +1,5 @@
 import { IsEnum } from 'class-validator';
-import { Status } from '../../../enums/status.enum';
+import { Status } from '../../common/enums/status.enum';
 
 export class UpdateLivraisonStatusDto {
     @IsEnum(Status, {

@@ -9,8 +9,8 @@ import { SecteurModule } from './secture/secteurs.module';
 import { LivraisonModule } from './livraision/livraision.module';
 import { PlansModule } from './plans/plans.module';
 import { AuthModule } from './auth/auth.module';
-import { JwtAuthGuard } from './shared/guard/jwt-auth.guard';
-import { RolesGuard } from './shared/guard/roles.guard';
+import { JwtAuthGuard } from './common/guard/jwt-auth.guard';
+import { RolesGuard } from './common/guard/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { GeoModule } from './geocoding/geomodule';
 

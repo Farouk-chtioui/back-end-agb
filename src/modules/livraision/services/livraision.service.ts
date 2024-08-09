@@ -5,7 +5,7 @@ import { Livraison } from '../schema/livraision.schema';
 import { CreateLivraisonDto } from '../dto/livraison.dto';
 import { UpdateDriverDto } from '../dto/addDriver.dto';
 import { LivraisonServiceInterface } from '../interfaces/livraision.interface';
-import { Status } from '../../../enums/status.enum';
+import { Status } from '../../common/enums/status.enum';
 import * as QRCode from 'qrcode';
 import * as shortid from 'shortid';
 

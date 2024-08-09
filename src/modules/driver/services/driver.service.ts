@@ -8,7 +8,7 @@ import { DriverServiceInterface } from "../interfaces/driver.interface";
 import { ConfigService } from "@nestjs/config";
 import { AuthService } from "src/modules/auth/services/auth.service";
 import { LoginDto } from "src/modules/auth/dto/login.dto";
-import { Roles } from "src/enums/roles.enum";
+import { Roles } from "src/modules/common/enums/roles.enum";
 
 @Injectable()
 export class DriverService implements DriverServiceInterface {
