@@ -32,5 +32,6 @@ export class GeocodingService {
     } catch (error) {
       throw new HttpException('Error fetching coordinates', HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    
   }
 }
