@@ -4,18 +4,35 @@ import { Model } from "mongoose";
 import { ClientDto } from "../dto/client.dto";
 import { Client } from "../schema/client.schema";
 import { ClientServiceInterface } from "../interfaces/client.interface";
+import { GeocodingService } from "../../geocoding/geocoding.service";  // Import the GeocodingService
 
 @Injectable()
 export class ClientService implements ClientServiceInterface {
     constructor(
-        @InjectModel(Client.name) private clientModel: Model<Client>
+        @InjectModel(Client.name) private clientModel: Model<Client>,
+        private readonly geocodingService: GeocodingService  
     ) {}
-    
-    async createClient(client: ClientDto): Promise<Client> {
-        const createdClient = new this.clientModel(client);
+
+    async createClient(clientDto: ClientDto): Promise<Client> {
+        const { address1 } = clientDto;
+
+        // Fetch the coordinates for the given address
+        const coordinates = await this.geocodingService.getCoordinates(address1);
+        
+        if (!coordinates) {
+            throw new Error('Unable to fetch coordinates for the provided address');
+        }
+
+        // Add the longitude and latitude to the client data
+        const clientData = {
+            ...clientDto,
+            longitude: coordinates.longitude,
+            latitude: coordinates.latitude,
+        };
+
+        const createdClient = new this.clientModel(clientData);
         return createdClient.save();
     }
-
     async findAll(page: number = 1): Promise<{ clients: Client[], total: number, totalPages: number }> {
         const perPage = 10;  
         const clients = await this.clientModel
@@ -30,8 +47,25 @@ export class ClientService implements ClientServiceInterface {
         return { clients, total, totalPages };
     }
 
-    async update(id: string, client: Partial<Client>): Promise<Client> {
-        return this.clientModel.findByIdAndUpdate(id, { $set: client }, { new: true }).exec();
+    async update(id: string, clientDto: Partial<ClientDto>): Promise<Client> {
+        const { address1 } = clientDto;
+
+        let updatedData = { ...clientDto };
+
+        if (address1) {
+            // Fetch the coordinates if the address is being updated
+            const coordinates = await this.geocodingService.getCoordinates(address1);
+            if (!coordinates) {
+                throw new Error('Unable to fetch coordinates for the updated address');
+            }
+            updatedData = {
+                ...updatedData,
+                longitude: coordinates.longitude,
+                latitude: coordinates.latitude,
+            };
+        }
+
+        return this.clientModel.findByIdAndUpdate(id, { $set: updatedData }, { new: true }).exec();
     }
 
     async delete(id: string): Promise<Client> {

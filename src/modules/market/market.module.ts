@@ -4,13 +4,14 @@ import { Market, MarketSchema } from './schema/market.schema';
 import { MarketService } from './services/market.service';
 import { MarketController } from './controller/market.controller';
 import { AuthModule } from '../auth/auth.module';
+import { GeocodingService } from '../geocoding/geocoding.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Market.name, schema: MarketSchema }]),
     AuthModule,
   ],
-  providers: [MarketService],
+  providers: [MarketService,GeocodingService],
   controllers: [MarketController],
   exports: [MarketService],
 })

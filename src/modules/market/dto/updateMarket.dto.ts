@@ -16,4 +16,8 @@ export class UpdateMarketDto {
   @IsString() 
   @IsOptional()  
   codePostal?: string;  
+  @IsOptional()
+  latitude?: number;
+  @IsOptional() 
+  longitude?: number;
 }

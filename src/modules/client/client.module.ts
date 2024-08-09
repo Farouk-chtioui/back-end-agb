@@ -3,12 +3,13 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { ClientService } from "./services/client.service";
 import { ClientController } from "./controller/client.controller";
 import { Client,ClientSchema } from "./schema/client.schema";
+import { GeocodingService } from "../geocoding/geocoding.service";
 
 
 
 @Module({
     imports:[MongooseModule.forFeature([{name: Client.name, schema: ClientSchema}])],
-    providers:[ClientService],
+    providers:[ClientService,GeocodingService],
     controllers:[ClientController]
 })
 export class ClientModule {}

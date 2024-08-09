@@ -35,6 +35,12 @@ export class Market extends Document {
 
   @Prop({ required: true })
   codePostal: string;
+  
+  @Prop() 
+  latitude: number;
+
+  @Prop() 
+  longitude: number;
 }
 
 export const MarketSchema = SchemaFactory.createForClass(Market);

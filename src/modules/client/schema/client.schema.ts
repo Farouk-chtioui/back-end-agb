@@ -23,7 +23,11 @@ export class Client {
     @Prop()
     code_postal2: string;
 
-    
+    @Prop({ required: true })
+    longitude: number; 
+
+    @Prop({ required: true })
+    latitude: number;  
 }
 
 const ClientSchema = SchemaFactory.createForClass(Client);

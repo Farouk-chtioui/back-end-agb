@@ -1,12 +1,8 @@
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsNumber } from 'class-validator';
 
 export class CreateMarketDto {
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   first_name: string;
 
   @IsNotEmpty()
@@ -17,8 +13,8 @@ export class CreateMarketDto {
   @IsString()
   email: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   address: string;
 
   @IsNotEmpty()
@@ -33,7 +29,23 @@ export class CreateMarketDto {
   @IsNumber()
   numberMi: number;
 
-  @IsString()  
-  @IsNotEmpty()  
-  codePostal: string; 
+  @IsNotEmpty()
+  @IsNumber()
+  numberMaInitial: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  numberMiInitial: number;
+
+  @IsNotEmpty()
+  @IsString()
+  codePostal: string;
+
+  @IsOptional()
+  @IsNumber()
+  latitude?: number;
+
+  @IsOptional()
+  @IsNumber()
+  longitude?: number;
 }

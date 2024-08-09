@@ -3,8 +3,7 @@ import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class GeocodingService {
-  constructor(private readonly configService: ConfigService) {}
-  private readonly API_KEY = this.configService.get<string>('GOOGLE_MAPS_API_KEY');
+  private readonly API_KEY = 'AIzaSyCdm4vHixOK16li8k5nuGVIe3bK6fqrUbo';
   private cache = new Map<string, { latitude: number; longitude: number }>();
 
   async getCoordinates(address: string): Promise<{ latitude: number; longitude: number }> {
