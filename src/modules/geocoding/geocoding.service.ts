@@ -1,9 +1,10 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import axios from 'axios';
-
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class GeocodingService {
-  private readonly API_KEY = 'AIzaSyCdm4vHixOK16li8k5nuGVIe3bK6fqrUbo';
+  constructor(private readonly configService: ConfigService) {}
+  private readonly API_KEY = this.configService.get<string>('GOOGLE_MAPS_API_KEY');
   private cache = new Map<string, { latitude: number; longitude: number }>();
 
   async getCoordinates(address: string): Promise<{ latitude: number; longitude: number }> {
