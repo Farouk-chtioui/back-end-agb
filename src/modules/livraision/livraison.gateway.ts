@@ -5,7 +5,7 @@ import { Status } from 'src/modules/common/enums/status.enum';
 
 @WebSocketGateway({
   cors: {
-    origin: ['http://localhost:3000', 'http://192.168.1.7'],
+    origin: ['http://localhost:3000', 'http://192.168.1.3:8081'],
     credentials: true,
   },
 })
@@ -41,5 +41,24 @@ export class LivraisonGateway implements OnGatewayInit {
 
   async emitNotification() {
     this.server.emit('newLivraisonNotification', { message: 'New livraison added' });
+  }
+
+  @SubscribeMessage('addLivraisonWithDriver')
+  async handleAddLivraisonWithDriver(@MessageBody() data: { id: string, driverId: string }) {
+    console.log('Received addLivraisonWithDriver event with data:', data);
+    if (data && data.id && data.driverId) {
+      this.server.emit('addLivraisonWithDriver', data);
+      await this.emitNotificationWithDriver(data.id, data.driverId);
+    } else {
+      console.error('Invalid data received for addLivraisonWithDriver event');
+    }
+  }
+
+  async emitNotificationWithDriver(livraisonId: string, driverId: string) {
+    this.server.emit('newLivraisonNotificationWithDriver', {
+      message: 'New livraison assigned to driver',
+      livraisonId,
+      driverId,
+    });
   }
 }
