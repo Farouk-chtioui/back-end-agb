@@ -8,14 +8,14 @@ import { UpdateMarketDto } from '../dto/updateMarket.dto';
 import { AuthService } from '../../auth/services/auth.service';
 import { MarketServiceInterface } from '../interfaces/market.interface';
 import { LoginDto } from '../../auth/dto/login.dto';
-import { GeocodingService } from '../../geocoding/services/geocoding.service';  // Import GeocodingService
+import { GeocodingService } from '../../geocoding/services/geocoding.service';  
 
 @Injectable()
 export class MarketService implements MarketServiceInterface {
   constructor(
     @InjectModel(Market.name) private marketModel: Model<Market>,
     private readonly authService: AuthService,
-    private readonly geocodingService: GeocodingService,  // Inject GeocodingService
+    private readonly geocodingService: GeocodingService,  
   ) {}
 
   async createMarket(createMarketDto: CreateMarketDto) {
@@ -27,24 +27,32 @@ export class MarketService implements MarketServiceInterface {
     const newMarket = new this.marketModel({ 
       ...createMarketDto, 
       password: hashedPassword,
-      numberMaInitial: createMarketDto.numberMa, // Set initial values
-      numberMiInitial: createMarketDto.numberMi, // Set initial values
-      latitude,  // Store latitude
-      longitude, // Store longitude
+      numberMaInitial: createMarketDto.numberMa, 
+      numberMiInitial: createMarketDto.numberMi, 
+      latitude,  
+      longitude,
     });
 
     return newMarket.save();
   }
 
-  async updateUser(id: number, updateMarketDto: UpdateMarketDto) {
-    // Fetch coordinates if address is updated
+  async updateUser(id: string, updateMarketDto: UpdateMarketDto): Promise<Market> { 
+    if (updateMarketDto.password) {
+      updateMarketDto.password = await bcrypt.hash(updateMarketDto.password, 10);
+    }
+
+ 
     if (updateMarketDto.address) {
       const { latitude, longitude } = await this.geocodingService.getCoordinates(updateMarketDto.address);
       updateMarketDto.latitude = latitude;
       updateMarketDto.longitude = longitude;
     }
 
-    return this.marketModel.findByIdAndUpdate(id, updateMarketDto, { new: true });
+    const updatedMarket = await this.marketModel.findByIdAndUpdate(id, updateMarketDto, { new: true });
+    if (!updatedMarket) {
+      throw new NotFoundException(`Market with ID ${id} not found`);
+    }
+    return updatedMarket;
   }
 
   async getsMarkets(page: number = 1): Promise<{ markets: Market[], total: number, totalPages: number }> {
@@ -61,11 +69,11 @@ export class MarketService implements MarketServiceInterface {
     return { markets, total, totalPages };
   }
 
-  getUserById(id: number) {
+  getUserById(id: string) {
     return this.marketModel.findById(id);
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: string) {
     return this.marketModel.findByIdAndDelete(id);
   }
 

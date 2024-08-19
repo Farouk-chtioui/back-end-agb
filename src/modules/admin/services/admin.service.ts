@@ -36,6 +36,9 @@ export class AdminService implements AdminServiceInterface {
   }
 
   async update(id: string, admin: Admin): Promise<Admin> {
+    if (admin.password) {
+      admin.password = await bcrypt.hash(admin.password, 10);
+    }
     return this.adminModel.findByIdAndUpdate(id, admin, { new: true }).exec();
   }
 

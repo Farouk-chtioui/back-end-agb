@@ -25,19 +25,19 @@ export class MarketController {
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id') id: string) {
     return this.marketService.getUserById(id);
   }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: number, @Body() updateMarketDto: UpdateMarketDto) {
+  update(@Param('id') id: string, @Body() updateMarketDto: UpdateMarketDto) {
     return this.marketService.updateUser(id, updateMarketDto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: string) {
     return this.marketService.deleteUser(id);
   }
 

@@ -14,7 +14,8 @@ export class Admin extends Document {
 
   @Prop({ required: true })
   password: string;
-
+  @Prop({required: false})
+  image: string;
 }
 
 const AdminSchema = SchemaFactory.createForClass(Admin);

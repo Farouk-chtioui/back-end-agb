@@ -41,6 +41,9 @@ export class Market extends Document {
 
   @Prop() 
   longitude: number;
+
+  @Prop({required: false})
+  image: string;
 }
 
 export const MarketSchema = SchemaFactory.createForClass(Market);
