@@ -67,6 +67,8 @@ export class Livraison extends Document {
     createdAt: Date;
     @Prop({ type: String, required: false })
     signature?: string;
+    @Prop()
+    distance: number;
 }
 
 export const LivraisonSchema = SchemaFactory.createForClass(Livraison);

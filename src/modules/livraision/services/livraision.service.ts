@@ -88,9 +88,15 @@ export class LivraisonService implements LivraisonServiceInterface {
     }
 
     async updateDriver(id: string, updateDriverDto: UpdateDriverDto): Promise<Livraison> {
-        const driverId = updateDriverDto.driver.toString(); // Ensure driver ID is a string
-        return this.livraisonModel.findByIdAndUpdate(id, { driver: driverId }, { new: true }).exec();
+        const driverId = updateDriverDto.driver.toString(); 
+        const distance = updateDriverDto.distance; 
+        return this.livraisonModel.findByIdAndUpdate(
+            id,
+            { driver: driverId, distance: distance },  
+            { new: true }
+        ).exec();
     }
+    
 
     async searchLivraison(searchTerm: string): Promise<Livraison[]> {
         const regex = new RegExp(searchTerm, 'i');
