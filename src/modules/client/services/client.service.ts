@@ -14,22 +14,23 @@ export class ClientService implements ClientServiceInterface {
     ) {}
 
     async createClient(clientDto: ClientDto): Promise<Client> {
-        const { address1 } = clientDto;
-
-        // Fetch the coordinates for the given address
+        const { address1, address2 } = clientDto;
+    
+        // Fetch the coordinates for the given address1
         const coordinates = await this.geocodingService.getCoordinates(address1);
         
         if (!coordinates) {
             throw new Error('Unable to fetch coordinates for the provided address');
         }
-
+    
         // Add the longitude and latitude to the client data
         const clientData = {
             ...clientDto,
             longitude: coordinates.longitude,
             latitude: coordinates.latitude,
+            address2: address2, // Ensure address2 is included in the client data
         };
-
+    
         const createdClient = new this.clientModel(clientData);
         return createdClient.save();
     }
