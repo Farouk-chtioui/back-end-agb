@@ -11,7 +11,7 @@ export class Livraison extends Document {
     NumeroCommande: string;
 
     @Prop()
-    Référence: string;
+    reference: string;
 
     @Prop()
     part_du_magasin: string;

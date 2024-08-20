@@ -131,4 +131,15 @@ export class LivraisonService implements LivraisonServiceInterface {
     async findByStatus(status: Status): Promise<Livraison[]> {
         return this.livraisonModel.find({ status }).populate('client', '-password').populate({ path: 'products.productId', model: 'Product' }).populate('market').populate('driver').exec();
     }
+    async fetchByReference(reference: string): Promise<Livraison[]> {
+        return this.livraisonModel.find({ reference: reference }) 
+            .populate('client', '-password')
+            .populate({ path: 'products.productId', model: 'Product' }) 
+            .populate('market', '-image -password')
+            .populate('driver')
+            .exec();
+    }
+    
+    
+    
 }

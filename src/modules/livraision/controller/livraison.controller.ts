@@ -85,4 +85,8 @@ export class LivraisonController {
     async findByStatus(@Param('status') status: Status): Promise<Livraison[]> {
         return this.livraisonService.findByStatus(status);
     }
+    @Get('reference/:ref')
+    async findByRef(@Param('ref') ref: string): Promise<Livraison[]> {
+        return this.livraisonService.fetchByReference(ref);
+    }
 }
