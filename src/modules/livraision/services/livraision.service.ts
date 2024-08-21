@@ -146,6 +146,8 @@ export class LivraisonService implements LivraisonServiceInterface {
             .exec();
     }
     
-    
+    async findByDriverAndDate(driverId: string, date: string): Promise<Livraison[]> {
+        return this.livraisonModel.find({ driver: driverId, Date: date }).populate('client', '-password').populate({ path: 'products.productId', model: 'Product' }).populate('market','-password -image').populate('driver').exec();
+    }
     
 }

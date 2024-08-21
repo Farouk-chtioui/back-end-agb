@@ -89,4 +89,8 @@ export class LivraisonController {
     async findByRef(@Param('ref') ref: string): Promise<Livraison[]> {
         return this.livraisonService.fetchByReference(ref);
     }
+    @Get('driver/:driverId')
+    async findByDriverAndDate(@Param('driverId') driverId: string, @Query('date') date: string): Promise<Livraison[]> {
+        return this.livraisonService.findByDriverAndDate(driverId, date);
+    }
 }
