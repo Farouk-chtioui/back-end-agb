@@ -149,5 +149,35 @@ export class LivraisonService implements LivraisonServiceInterface {
     async findByDriverAndDate(driverId: string, date: string): Promise<Livraison[]> {
         return this.livraisonModel.find({ driver: driverId, Date: date }).populate('client', '-password').populate({ path: 'products.productId', model: 'Product' }).populate('market','-password -image').populate('driver').exec();
     }
+    async findByMarket(marketId: string, page: number = 1, searchTerm?: string): Promise<{ livraisons: Livraison[], total: number, totalPages: number }> {
+        const perPage = 10;
+        const query: any = { market: marketId };
+    
+        if (searchTerm) {
+            const regex = new RegExp(searchTerm, 'i');
+            query.$or = [
+                { NumeroCommande: { $regex: regex } },
+                { status: { $regex: regex } },
+                { 'client.first_name': { $regex: regex } },
+                { 'driver.first_name': { $regex: regex } },
+            ];
+        }
+    
+        const livraisons = await this.livraisonModel
+            .find(query)
+            .skip((page - 1) * perPage)
+            .limit(perPage)
+            .populate('client', '-password')
+            .populate({ path: 'products.productId', model: 'Product' })
+            .populate('market', '-password')
+            .populate('driver', '-password')
+            .exec();
+    
+        const total = await this.livraisonModel.countDocuments(query).exec();
+        const totalPages = Math.ceil(total / perPage);
+    
+        return { livraisons, total, totalPages };
+    }
+    
     
 }

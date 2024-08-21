@@ -93,4 +93,13 @@ export class LivraisonController {
     async findByDriverAndDate(@Param('driverId') driverId: string, @Query('date') date: string): Promise<Livraison[]> {
         return this.livraisonService.findByDriverAndDate(driverId, date);
     }
+    @Get('market/:marketId')
+    async findByMarket(
+        @Param('marketId') marketId: string,
+        @Query('page') page: number = 1,
+        @Query('searchTerm') searchTerm?: string
+    ): Promise<{ livraisons: Livraison[], total: number, totalPages: number }> {
+        return this.livraisonService.findByMarket(marketId, page, searchTerm);
+    }
+    
 }
