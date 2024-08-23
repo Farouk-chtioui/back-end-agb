@@ -23,7 +23,7 @@ export class ProductService implements ProductServiceInterface {
         return this.productsModle.find().exec();
     }
 
-    async findAll(page: number = 1, limit: number = 6): Promise<{ products: Product[], total: number, totalPages: number }> {
+    async findAll(page: number = 1, limit: number = 10): Promise<{ products: Product[], total: number, totalPages: number }> {
         const skip = (page - 1) * limit;
         const total = await this.productsModle.countDocuments();
         const products = await this.productsModle.find().skip(skip).limit(limit).exec();
