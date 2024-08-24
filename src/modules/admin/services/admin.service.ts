@@ -27,8 +27,18 @@ export class AdminService implements AdminServiceInterface {
     return newUser.save();
   }
 
-  async findAll(): Promise<Admin[]> {
-    return this.adminModel.find().exec();
+  async findAll(page: number = 1): Promise<{ admins: Admin[], total: number, totalPages: number }> {
+    const perPage = 10;
+    const admins = await this.adminModel
+      .find()
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .exec();
+
+    const total = await this.adminModel.countDocuments().exec();
+    const totalPages = Math.ceil(total / perPage);
+
+    return { admins, total, totalPages };
   }
 
   async findOne(id: string): Promise<Admin> {
@@ -49,4 +59,14 @@ export class AdminService implements AdminServiceInterface {
   async login(loginDto: LoginDto): Promise<{ token: string, role: string }> {
     return this.authService.login(loginDto);
   }
+  async searchAdmins(searchTerm: string) {
+    return this.adminModel.find({
+      $or: [
+        { name: new RegExp(searchTerm, 'i') },
+        { email: new RegExp(searchTerm, 'i') },
+        { role: new RegExp(searchTerm, 'i') },
+      ],
+    }).exec();
+  }
+  
 }

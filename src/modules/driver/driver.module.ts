@@ -13,5 +13,7 @@ import { AuthModule } from '../auth/auth.module';
 ],
   providers: [DriverService],
   controllers: [DriverController],
+  exports: [DriverService],
+
 })
 export class DriverModule {}

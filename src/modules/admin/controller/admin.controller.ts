@@ -24,8 +24,8 @@ export class AdminController {
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @RolesDecorator(Roles.Admin)
-  async findAll() {
-    return this.adminService.findAll();
+  async findAll(@Param('page') page: number = 1) {
+    return this.adminService.findAll(page);
   }
 
   @Get(':id')

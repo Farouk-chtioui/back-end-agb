@@ -77,15 +77,16 @@ export class MarketService implements MarketServiceInterface {
     return this.marketModel.findByIdAndDelete(id);
   }
 
-  async searchMarket(searchTerm: string): Promise<Market[]> {
-    const regex = new RegExp(searchTerm, 'i');
+  async searchMarket(searchTerm: string) {
     return this.marketModel.find({
       $or: [
-        { first_name: { $regex: regex } },
-        { last_name: { $regex: regex } }
-      ]
+        { first_name: new RegExp(searchTerm, 'i') },
+        { email: new RegExp(searchTerm, 'i') },
+        { role: new RegExp(searchTerm, 'i') },
+      ],
     }).exec();
   }
+  
 
   async login(loginDto: LoginDto): Promise<{ token: string, role: string }> {
     return this.authService.login(loginDto);

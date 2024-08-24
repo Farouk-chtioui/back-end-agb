@@ -13,6 +13,7 @@ import { JwtAuthGuard } from './common/guard/jwt-auth.guard';
 import { RolesGuard } from './common/guard/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { GeoModule } from './geocoding/geomodule';
+import { UsersModule } from './Accounts/User.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { GeoModule } from './geocoding/geomodule';
     PlansModule,
     AuthModule,
     GeoModule,
+    UsersModule,
     
   ],
   controllers: [],

@@ -38,7 +38,7 @@ export class AuthService {
           const payload = { username: user.name || user.first_name, sub: user._id, role };
           const token = this.jwtService.sign(payload, {
             secret: this.configService.get<string>('JWT_SECRET'),
-            expiresIn: rememberMe ? '30d' : '1h',
+            expiresIn: rememberMe ? '30d' : '24h',
           });
           console.log(`Generated token: ${token}`);
           return { token, role, userId: user._id.toString() };

@@ -65,15 +65,17 @@ export class DriverService implements DriverServiceInterface {
     return this.driverModel.findByIdAndDelete(id).exec();
   }
 
-  async searchDriver(searchTerm: string): Promise<Driver[]> {
-    const regex = new RegExp(searchTerm, 'i');
+  async searchDriver(searchTerm: string) {
     return this.driverModel.find({
       $or: [
-        { first_name: { $regex: regex } },
-        { last_name: { $regex: regex } }
-      ]
+        { first_name: new RegExp(searchTerm, 'i') },
+        { last_name: new RegExp(searchTerm, 'i') },
+        { email: new RegExp(searchTerm, 'i') },
+        { role: new RegExp(searchTerm, 'i') },
+      ],
     }).exec();
   }
+  
 
   async login(loginDto: LoginDto): Promise<{ token: string, role: string, userId: string }> {
     const { token, role, userId } = await this.authService.login(loginDto);
