@@ -18,7 +18,6 @@ export class LivraisonGateway implements OnGatewayInit {
   afterInit(server: Server) {
     console.log('WebSocket server initialized');
   }
-
   @SubscribeMessage('statusChange')
   handleStatusChange(@MessageBody() data: { id: string, status: Status }) {
     if (data && data.id) {
@@ -30,15 +29,25 @@ export class LivraisonGateway implements OnGatewayInit {
 
   @SubscribeMessage('addLivraison')
   async handleAddLivraison(@MessageBody() data: { id: string }) {
-    console.log('Received addLivraison event with data:', data);
-    if (data && data.id) {
-      this.server.emit('addLivraison', data); 
-      await this.emitNotification();
-    } else {
-      console.error('Invalid data received for addLivraison event');
-    }
+      console.log('Received addLivraison event with data:', data);
+      if (data && data.id) {
+          this.server.emit('addLivraison', data); 
+          await this.updatePendingCount();  // Update and emit the pending count
+      } else {
+          console.error('Invalid data received for addLivraison event');
+      }
   }
-
+  
+  async updatePendingCount() {
+      try {
+          const pendingCount = await this.livraisonService.countPendingDeliveries(); // Get the current pending count
+          console.log('Updated pending count:', pendingCount);  // Ensure this logs the correct count
+          this.server.emit('updatePendingCount', { count: pendingCount }); // Emit the updated count to all clients
+      } catch (error) {
+          console.error('Error fetching pending count:', error);
+      }
+  }
+  
   async emitNotification() {
     this.server.emit('newLivraisonNotification', { message: 'New livraison added' });
   }
@@ -61,4 +70,6 @@ export class LivraisonGateway implements OnGatewayInit {
       driverId,
     });
   }
+
+  
 }
