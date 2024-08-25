@@ -24,6 +24,13 @@ export class DriverService implements DriverServiceInterface {
     return newDriver.save();
   }
 
+  async getAllDrivers(): Promise<Driver[]> {
+    const drivers = await this.driverModel.find().exec();
+    return drivers;
+}
+
+
+  // Pagination method remains for other use cases
   async findAll(page: number = 1): Promise<{ drivers: Driver[], total: number, totalPages: number }> {
     const perPage = 10;
     const drivers = await this.driverModel
@@ -76,7 +83,6 @@ export class DriverService implements DriverServiceInterface {
     }).exec();
   }
   
-
   async login(loginDto: LoginDto): Promise<{ token: string, role: string, userId: string }> {
     const { token, role, userId } = await this.authService.login(loginDto);
     console.log(`DriverService login - role: ${role}`);

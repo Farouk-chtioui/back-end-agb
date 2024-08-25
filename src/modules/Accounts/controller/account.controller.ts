@@ -12,7 +12,6 @@ export class UsersController {
 
   @Get('search')
   async search(@Query('term') searchTerm: string) {
-    console.log('Received search term:', searchTerm);  // Debugging: Log the received search term
     return this.usersService.searchUsers(searchTerm);
   }
 }

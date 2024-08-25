@@ -98,7 +98,6 @@ export class UsersService {
       user.role.toLowerCase().includes(trimmedTerm.toLowerCase())
     );
   
-    console.log('Filtered users:', filteredUsers);
   
     return filteredUsers;
   }

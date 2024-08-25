@@ -22,6 +22,10 @@ export class MarketController {
   findAll(@Query('page') page: number) {
     return this.marketService.getsMarkets(page);
   }
+  @Get('all')
+  async getAll() {
+    return this.marketService.getAllMarkets();
+  }
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
@@ -55,5 +59,6 @@ export class MarketController {
   decreaseTotals(@Param('id') id: string, @Param('period') period: 'Matin' | 'Midi') {
     return this.marketService.decreaseTotals(id, period);
   }
+
   
 }
