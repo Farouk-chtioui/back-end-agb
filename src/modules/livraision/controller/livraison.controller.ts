@@ -14,6 +14,10 @@ export class LivraisonController {
     async create(@Body() createLivraisonDto: CreateLivraisonDto): Promise<Livraison> {
         return this.livraisonService.createLivraison(createLivraisonDto);
     }
+    @Get('all')
+    async getAllWithoutPagination(): Promise<{ livraisons: Livraison[], total: number }> {
+        return this.livraisonService.getAllWithoutPagination();
+    }
 
     @Get()
     async findAll(@Query('page') page: number = 1): Promise<{ livraisons: Livraison[], total: number, totalPages: number }> {
@@ -62,10 +66,6 @@ export class LivraisonController {
         return { count };
     }
 
-    @Get('all')
-    async getAllOrder(): Promise<Livraison[]> {
-        return this.livraisonService.getAllOrder();
-    }
 
     @Patch('scan-qr/:id')
     async scanQRCode(@Param('id') id: string): Promise<Livraison> {

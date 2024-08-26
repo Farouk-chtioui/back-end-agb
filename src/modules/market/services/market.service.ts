@@ -122,4 +122,12 @@ export class MarketService implements MarketServiceInterface {
 
     return market.save();
   }
+
+  async getAllWithTotal(): Promise<{ markets: Market[], total: number }> {
+    const markets = await this.marketModel.find().exec();
+    const total = await this.marketModel.countDocuments().exec();
+
+    return { markets, total };
+  }
+
 }

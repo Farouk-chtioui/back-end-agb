@@ -91,4 +91,9 @@ export class DriverService implements DriverServiceInterface {
     }
     return { token, role, userId };
   }
+  async getAllwithTotal(): Promise<{ drivers: Driver[], total: number }> {
+    const drivers = await this.driverModel.find().exec();
+    const total = await this.driverModel.countDocuments().exec();
+    return { drivers, total };
+  }
 }

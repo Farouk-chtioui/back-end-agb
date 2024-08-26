@@ -26,6 +26,10 @@ export class MarketController {
   async getAll() {
     return this.marketService.getAllMarkets();
   }
+  @Get('all/total')
+  async getTotal() {
+    return this.marketService.getAllWithTotal();
+  }
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)

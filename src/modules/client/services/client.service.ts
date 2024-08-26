@@ -90,4 +90,9 @@ export class ClientService implements ClientServiceInterface {
     async findById(id: string): Promise<Client> {
         return this.clientModel.findById(id).exec(); 
     }
+    async getallwithtotal(): Promise<{ clients: Client[], total: number }> {    
+        const clients = await this.clientModel.find().exec();
+        const total = await this.clientModel.countDocuments().exec();
+        return { clients, total };
+    }
 }

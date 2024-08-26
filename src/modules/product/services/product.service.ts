@@ -59,4 +59,10 @@ export class ProductService implements ProductServiceInterface {
             ]
         }).exec();
     }
+    async getAllwithTotal(): Promise<{ products: Product[], total: number }> {
+        const products = await this.productsModle.find().exec();
+        const total = await this.productsModle.countDocuments().exec();
+
+        return { products, total };
+    }
 }

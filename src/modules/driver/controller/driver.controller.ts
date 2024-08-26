@@ -31,6 +31,10 @@ export class DriverController {
   async getAllDrivers() {
       return this.driverService.getAllDrivers();
   }
+  @Get('all/total')
+    async getTotalDrivers() {
+        return this.driverService.getAllwithTotal();
+    }
 
   @Get()
   async findAll(@Query('page') page: number) {

@@ -23,6 +23,10 @@ import { ProdcutDto } from "../dto/product.dto";
         async findAllNoPage(){
             return this.productService.findAllNoPage();
         }
+        @Get('all/total')
+        async getTotal(){
+            return this.productService.getAllwithTotal();
+        }
         @Get(':id')
         async findOne(@Param('id') id: string) {
             return this.productService.findOne(id);

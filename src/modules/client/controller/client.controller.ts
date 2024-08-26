@@ -12,6 +12,10 @@ export class ClientController {
     create(@Body() client: ClientDto) {
         return this.clientService.createClient(client);
     }
+    @Get('all/total')
+    async getTotalClients() :Promise<{clients: Client[], total: number}> {
+        return this.clientService.getallwithtotal();
+    }
 
     @Get()
     async findAll(@Query('page') page: number = 1) {

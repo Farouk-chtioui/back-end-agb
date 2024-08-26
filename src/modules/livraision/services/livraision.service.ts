@@ -45,9 +45,21 @@ export class LivraisonService implements LivraisonServiceInterface {
         return { livraisons, total, totalPages };
     }
 
-    async getAllOrder(): Promise<Livraison[]> {
-        return this.livraisonModel.find().exec();
+
+    async getAllWithoutPagination(): Promise<{ livraisons: Livraison[], total: number }> {
+        const livraisons = await this.livraisonModel
+            .find()
+            .populate('client', '-password')
+            .populate({ path: 'products.productId', model: 'Product' })
+            .populate('market')
+            .populate('driver')
+            .exec();
+    
+        const total = await this.livraisonModel.countDocuments().exec();
+    
+        return { livraisons, total };
     }
+    
 
     async findById(id: string): Promise<Livraison> {
         return this.livraisonModel
